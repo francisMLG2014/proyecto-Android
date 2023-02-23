@@ -1,58 +1,53 @@
 package clases
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 
-open class Usuario :  {
-     var nombreUsuario : String?
-     var email : String?
-     var imagenUsuario : Bitmap?
-     var puntosActuales : Int?
-     var totalPuntosRegistrados : Int?
-     var fechaNacimiento : LocalDate?
-     var fechaRegistro:LocalDate?
+open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,puntosActuales: Int?,totalPuntosRegistrados: Int?,fechaNacimiento: LocalDate?,fechaRegistro: LocalDate?) :  Parcelable{
 
+    var nombreUsuario : String? =nombreUsuario
+     var email : String? =email
+     var imagenUsuario : Bitmap? =imagenUsuario
+     var puntosActuales : Int? =puntosActuales
+     var totalPuntosRegistrados : Int? =totalPuntosRegistrados
+     var fechaNacimiento : LocalDate? =fechaNacimiento
+     var fechaRegistro:LocalDate? =fechaRegistro
 
-
-    /**
-     * Constructor base que inicializa todas las variables internas a null.
-     */
-    constructor(){
-        this.nombreUsuario=null
-        this.email=null
-        this.imagenUsuario=null
-        this.puntosActuales=null
-        this.totalPuntosRegistrados=null
-        this.fechaRegistro=null
-        this.fechaNacimiento=null
-
-    }
 
     /**
-     * Constructor que recibe todos los datos necesarios para un objeto Usuario.
-     * Todas las variables pueden tener valor null.
+     * Constructor vacío
      */
-    constructor(nombreUsuario: String?,email:String?,imagenUsuario:Bitmap?,puntosActuales:Int?,totalPuntosRegistrados:Int?,fechaNacimiento:LocalDate?,fechaRegistro:LocalDate?) : this(){
-        this.nombreUsuario=nombreUsuario
-        this.email=email
-        this.imagenUsuario=imagenUsuario
-        this.puntosActuales=puntosActuales
-        this.totalPuntosRegistrados=totalPuntosRegistrados
-        this.fechaNacimiento=fechaNacimiento
-        this.fechaRegistro=fechaRegistro
+    constructor():this(null,null,null,null,null,null,null)
 
-    }
+
+
+    //---------------
+
 
     constructor(parcel: Parcel) : this() {
         nombreUsuario = parcel.readString()
         email = parcel.readString()
-        imagenUsuario = parcel.readParcelable(Bitmap::class.java.classLoader)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                imagenUsuario = parcel.readParcelable(Bitmap::class.java.classLoader,Bitmap::class.java)
+            }else{
+                imagenUsuario = parcel.readParcelable(Bitmap::class.java.classLoader)
+            }
+
         puntosActuales = parcel.readValue(Int::class.java.classLoader) as? Int
         totalPuntosRegistrados = parcel.readValue(Int::class.java.classLoader) as? Int
-        fechaNacimiento = parcel.readValue(LocalDate::class.java.classLoader) as? LocalDate
-        fechaRegistro = parcel.readValue(LocalDate::class.java.classLoader) as? LocalDate
+        fechaNacimiento=Instant.ofEpochMilli(parcel.readLong())
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+        fechaRegistro=Instant.ofEpochMilli(parcel.readLong())
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
     }
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nombreUsuario)
@@ -60,6 +55,9 @@ open class Usuario :  {
         parcel.writeParcelable(imagenUsuario, flags)
         parcel.writeValue(puntosActuales)
         parcel.writeValue(totalPuntosRegistrados)
+        parcel.writeLong(fechaNacimiento!!.toEpochDay())
+        parcel.writeLong(fechaRegistro!!.toEpochDay())
+    /*Fechas*/
     }
 
     override fun describeContents(): Int {

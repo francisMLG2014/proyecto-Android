@@ -16,12 +16,14 @@ class PantallaLogin : ActividadMadre() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_login)
-        val bundle:Bundle?=intent.extras
+        recogerUsuario(intent)
+        var bundle:Bundle?=intent.extras
             if (bundle != null) {
                 edtEmail.setText(bundle.getString("Email"))
                 edtContrasena.setText(bundle.getString("Contrasena"))
             }
-
+        Toast.makeText(this,this.usuario?.nombreUsuario+" - "+this.usuario?.email,Toast.LENGTH_LONG).show()
+        Toast.makeText(this,this.usuario?.fechaNacimiento.toString()+" - "+this.usuario?.fechaRegistro.toString(),Toast.LENGTH_LONG).show()
     }
 
     override fun onStart() {
@@ -30,9 +32,7 @@ class PantallaLogin : ActividadMadre() {
             val bundle:Bundle=Bundle()
             bundle.putString("Email",edtEmail.text.toString())
             bundle.putString("Contrasena",edtContrasena.text.toString())
-            val intent:Intent= Intent(this,PantallaRegistro::class.java)
-            intent.putExtras(bundle)
-            this.startActivity(intent)
+            this.cambiarPantalla(PantallaRegistro::class.java,bundle)
 
         }
         btnIniciarSesion.setOnClickListener(){

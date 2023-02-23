@@ -1,6 +1,7 @@
 package com.example.proyecto_android
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import clases.UsuarioLogado
@@ -13,10 +14,23 @@ open abstract class ActividadMadre : AppCompatActivity() {
 
     }
 
-    public fun cambiarPantalla(pantalla:String):Unit{
-        var intent:Intent=Intent(this,pantalla.javaClass)
+     fun <T>cambiarPantalla(clase:Class<T>,bundle: Bundle?):Unit{
+        var intent:Intent=Intent(this,clase)
+
+         if(bundle!=null) {
+             intent.putExtras(bundle)
+         }
         intent.putExtra("usuario",usuario)
         this.startActivity(intent)
+    }
+
+     fun recogerUsuario(intent:Intent?):Unit{
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.usuario=intent?.getParcelableExtra("usuario",UsuarioLogado::class.java)
+        }else{
+            this.usuario=intent?.getParcelableExtra("usuario")
+        }
+
     }
 
 

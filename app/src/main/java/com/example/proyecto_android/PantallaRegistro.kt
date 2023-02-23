@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import clases.UsuarioLogado
+import java.time.LocalDate
 
 class PantallaRegistro : ActividadMadre() {
     private val btnRegistrarme by lazy{this.findViewById<Button>(R.id.btnRegistroRegistrarme)}
@@ -17,7 +19,8 @@ class PantallaRegistro : ActividadMadre() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_registro)
-        val bundle:Bundle?=intent.extras
+        recogerUsuario(intent)
+        var bundle:Bundle?=intent.extras
         if (bundle != null) {
             edtEmail.setText(bundle.getString("Email"))
             edtContrasena.setText(bundle.getString("Contrasena"))
@@ -30,12 +33,11 @@ class PantallaRegistro : ActividadMadre() {
             Toast.makeText(this,R.string.no_implementado, Toast.LENGTH_SHORT).show()
         }
         btnIniciarSesion.setOnClickListener(){
-            var intent:Intent= Intent(this,PantallaLogin::class.java)
-            var bundle:Bundle=Bundle()
+            val bundle:Bundle=Bundle()
             bundle.putString("Email",edtEmail.text.toString())
             bundle.putString("Contrasena",edtContrasena.text.toString())
-            intent.putExtras(bundle)
-            this.startActivity(intent)
+            this.usuario= UsuarioLogado("Franchute","fran@gmail.com",null,10,200,LocalDate.now(), LocalDate.now(),null)
+            this.cambiarPantalla(PantallaLogin::class.java,bundle)
         }
 
 

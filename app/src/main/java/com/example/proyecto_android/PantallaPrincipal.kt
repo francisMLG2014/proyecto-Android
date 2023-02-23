@@ -9,6 +9,6 @@ class PantallaPrincipal : ActividadMadre() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_principal)
-        this.usuario=intent.getParcelableExtra("usuario", UsuarioLogado?::class.java)
+        recogerUsuario(intent)
     }
 }
