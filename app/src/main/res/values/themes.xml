@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.myApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/textViewBase</item>
+        <item name="editTextStyle">@style/editTextBase</item>
+        <item name="android:buttonStyle">@style/btnBase</item>
+
+    </style>
+
+
+    <style name="textViewBase" parent="Widget.MaterialComponents.TextView">
+
+        <item name="android:textColor">@color/p2_nyanza_green_5</item>
+        <item name="android:background">@color/p2_pakistan_green_1</item>
+
+    </style>
+    <style name="editTextBase" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/p2_pakistan_green_1</item>
+        <item name="android:background">@color/p2_nyanza_green_5</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20dp</item>
+
+
+    </style>
+    <style name="btnBase" parent="Widget.AppCompat.Button">
+        <item name="background">@color/p2_nyanza_green_5</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
+
+</resources>

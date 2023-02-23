@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="p2_pakistan_green_1">#FF134611</color>
+    <color name="p2_india_green_2">#FF3E8914</color>
+    <color name="p2_pigment_green_3">#FF3DA35D</color>
+    <color name="p2_light_green_4">#FF96E072</color>
+    <color name="p2_nyanza_green_5">#FFE8FCCF</color>
+    <color name="p2_black">#FF000000</color>
+    <color name="p2_white">#FFFFFFFF</color>
+</resources>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="no_implementado">No implementado aún</string>
+    <!--Inicio sesion y registro-->
+    <string name="app_name">App de Fran</string>
+    <string name="inicio_sesion">Inicio de sesión</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="inicia_sesion">Inicia sesión</string>
+    <string name="no_registrado">¿No registrad@?</string>
+    <string name="recordar">Recordar</string>
+    <string name="registro">Registro</string>
+    <string name="registrarme">Registrarme</string>
+    <string name="ya_registrado">¿Ya registrad@?</string>
+    <string name="nombre_usuario">Nombre de usuario</string>
+    <string name="email">Email</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="ejemplo_nombre_usuario">Velocirraptor06</string>
+    <string name="ejemplo_email">miEmail22@gmail.com</string>
+    <string name="ejemplo_contrasena">****</string>
+</resources>

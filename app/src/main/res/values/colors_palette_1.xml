@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="p1_olive_green_1">#FF83781B</color>
+    <color name="p1_olivine_green_2">#FF95B46A</color>
+    <color name="p1_asparagus_green_3">#FF709255</color>
+    <color name="p1_dark_moss_green_4">#FF3E5622</color>
+    <color name="p1_dark_green_5">#FF172815</color>
+    <color name="p1_black">#FF000000</color>
+    <color name="p1_white">#FFFFFFFF</color>
+</resources>
