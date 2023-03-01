@@ -1,9 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PantallaPrincipal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recuadroSuperior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvPrincipalNombreUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPrincipalPuntosActuales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPrincipalNombreUsuario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvPrincipalNombreUsuario"
+                app:layout_constraintTop_toTopOf="@+id/tvPrincipalNombreUsuario" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recuadroInferior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/btnPrincipalMiPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/perfil"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnPrincipalAmigos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amigos"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPrincipalMiPerfil"
+                app:layout_constraintEnd_toStartOf="@+id/btnPrincipalAjustes"
+                app:layout_constraintStart_toEndOf="@+id/btnPrincipalMiPerfil"
+                app:layout_constraintTop_toTopOf="@+id/btnPrincipalMiPerfil" />
+
+            <Button
+                android:id="@+id/btnPrincipalAjustes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ajustes"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPrincipalMiPerfil"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnPrincipalMiPerfil"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btnPrincipalDesafios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/desafios"
+            app:layout_constraintBottom_toTopOf="@+id/btnPrincipalRecompensas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recuadroSuperior"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+        <Button
+            android:id="@+id/btnPrincipalRecompensas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recompensas"
+            app:layout_constraintBottom_toTopOf="@+id/recuadroInferior"
+            app:layout_constraintEnd_toEndOf="@+id/btnPrincipalDesafios"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/btnPrincipalDesafios"
+            app:layout_constraintTop_toBottomOf="@+id/btnPrincipalDesafios" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

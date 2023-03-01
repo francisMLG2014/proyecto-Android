@@ -86,11 +86,19 @@
                     android:inputType="textPassword" />
             </LinearLayout>
 
+            <Switch
+                android:id="@+id/switchLoginRecuerdame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/recuerdame" />
+
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingTop="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/btnLoginIniciarSesion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

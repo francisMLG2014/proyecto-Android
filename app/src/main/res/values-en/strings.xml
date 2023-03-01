@@ -1,0 +1,40 @@
+
+<resources>
+    <string name="no_implementado">Not yet implemented</string>
+    <!--Login and registration-->
+    <string name="app_name">Fran\'s App</string>
+    <string name="inicio_sesion">Login</string>
+    <string name="iniciar_sesion">Log in</string>
+    <string name="inicia_sesion">Sign in</string>
+    <string name="no_registrado">Not registered yet?</string>
+    <string name="recordar">Remember</string>
+    <string name="registro">Registration</string>
+    <string name="registrarme">Register</string>
+    <string name="ya_registrado">Already registered?</string>
+    <string name="nombre_usuario">Username</string>
+    <string name="email">Email</string>
+    <string name="contrasena">Password</string>
+    <string name="ejemplo_nombre_usuario">Velociraptor06</string>
+    <string name="ejemplo_email">myEmail22@gmail.com</string>
+    <string name="ejemplo_contrasena">****</string>
+    <string name="preferencias">Preferences</string>
+    <string name="bienvenida">Welcome</string>
+    <string name="idioma">Language</string>
+    <string name="app_ingles">This app is now on english</string>
+    <string name="guardar_email">Save Email</string>
+    <string name="recuperar_email">Recover email</string>
+    <string name="guardado">Saved</string>
+    <string name="recuperado">Recovered</string>
+    <string name="alerta">Alert</string>
+    <string name="comprar">Buy</string>
+    <string name="rechazar">Reject</string>
+    <string name="fecha_nacimiento">Birth date</string>
+
+    <string name="seleccionar">Select</string>
+
+    <string name="recuerdame">Remember me</string>
+
+    <string name="modo_oscuro">Dark mode</string>
+    <string name="aplicar">Apply</string>
+    <string name="cerrar">Close</string>
+</resources>

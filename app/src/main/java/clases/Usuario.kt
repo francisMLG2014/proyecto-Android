@@ -3,12 +3,18 @@ package clases
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Build
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Parcel
 import android.os.Parcelable
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZoneOffset
+import java.util.*
 
+/**
+ * Clase que contiene los datos necesarios para almacenar los datos de un usuario
+ */
 open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,puntosActuales: Int?,totalPuntosRegistrados: Int?,fechaNacimiento: LocalDate?,fechaRegistro: LocalDate?) :  Parcelable{
 
     var nombreUsuario : String? =nombreUsuario
@@ -30,11 +36,12 @@ open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,
     //---------------
 
 
+    @SuppressLint("SuspiciousIndentation")
     constructor(parcel: Parcel) : this() {
         nombreUsuario = parcel.readString()
         email = parcel.readString()
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (Build.VERSION.SDK_INT >= TIRAMISU) {
                 imagenUsuario = parcel.readParcelable(Bitmap::class.java.classLoader,Bitmap::class.java)
             }else{
                 imagenUsuario = parcel.readParcelable(Bitmap::class.java.classLoader)
@@ -42,12 +49,8 @@ open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,
 
         puntosActuales = parcel.readValue(Int::class.java.classLoader) as? Int
         totalPuntosRegistrados = parcel.readValue(Int::class.java.classLoader) as? Int
-        fechaNacimiento=Instant.ofEpochMilli(parcel.readLong())
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate()
-        fechaRegistro=Instant.ofEpochMilli(parcel.readLong())
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate()
+        fechaNacimiento=LocalDate.ofEpochDay(parcel.readLong())
+        fechaRegistro=LocalDate.ofEpochDay(parcel.readLong())
     }
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nombreUsuario)
@@ -55,9 +58,8 @@ open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,
         parcel.writeParcelable(imagenUsuario, flags)
         parcel.writeValue(puntosActuales)
         parcel.writeValue(totalPuntosRegistrados)
-        parcel.writeLong(fechaNacimiento!!.toEpochDay())
-        parcel.writeLong(fechaRegistro!!.toEpochDay())
-    /*Fechas*/
+        parcel.writeValue(Date.from(fechaNacimiento?.atStartOfDay()!!.toInstant(ZoneOffset.UTC)).time)
+        parcel.writeValue(Date.from(fechaRegistro?.atStartOfDay()!!.toInstant(ZoneOffset.UTC)).time)
     }
 
     override fun describeContents(): Int {

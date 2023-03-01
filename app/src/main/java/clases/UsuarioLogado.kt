@@ -5,20 +5,25 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.os.ParcelCompat.readParcelable
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap?, puntosActuales:Int?, totalPuntosRegistrados:Int?, fechaNacimiento: LocalDate?, fechaRegistro: LocalDate?,listaAmigos : ArrayList<Usuario>?)
+/**
+ * Clase que contiene los datos necesarios para crear al usuario logado de nuestra aplicacion
+ */
+class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap?, puntosActuales:Int?, totalPuntosRegistrados:Int?, fechaNacimiento: LocalDate?, fechaRegistro: LocalDate?,listaDeAmigos : ArrayList<Usuario>?)
     : Usuario(nombreUsuario,email,imagenUsuario,puntosActuales,totalPuntosRegistrados,fechaNacimiento,fechaRegistro), Parcelable {
-     var listaAmigos : ArrayList<Usuario>?=listaAmigos
+    var listaAmigos : ArrayList<Usuario>?= listaDeAmigos
+
 
 
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    constructor(parcel: Parcel, bitmap: Bitmap?) : this(
+    constructor(parcel: Parcel, bool:Boolean) : this(
         parcel.readString()!!,
         parcel.readString(),
         parcel.readParcelable<Bitmap>(Bitmap::class.java.classLoader,Bitmap::class.java),
@@ -30,7 +35,7 @@ class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap
         Instant.ofEpochMilli(parcel.readLong())
             .atZone(ZoneId.systemDefault())
             .toLocalDate(),
-        parcel.createTypedArrayList(Usuario.CREATOR)!!
+        parcel.createTypedArrayList(Usuario.CREATOR)
     )
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -44,7 +49,7 @@ class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap
         Instant.ofEpochMilli(parcel.readLong())
             .atZone(ZoneId.systemDefault())
             .toLocalDate(),
-        parcel.createTypedArrayList(Usuario.CREATOR)!!
+        parcel.createTypedArrayList(Usuario.CREATOR)
     )
 
 
@@ -60,16 +65,12 @@ class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap
     companion object CREATOR : Parcelable.Creator<UsuarioLogado> {
 
         override fun createFromParcel(parcel: Parcel): UsuarioLogado {
-            var bitmap:Bitmap?=null
+
             return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                UsuarioLogado(parcel, bitmap)
+                UsuarioLogado(parcel, true)
             }else{
                 UsuarioLogado(parcel)
             }
-
-
-
-
         }
 
         override fun newArray(size: Int): Array<UsuarioLogado?> {
