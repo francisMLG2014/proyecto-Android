@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "790432252071",
+    "project_id": "proyectoandroidfran",
+    "storage_bucket": "proyectoandroidfran.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790432252071:android:faaa89fabb1c4c5dc95b82",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790432252071-fb8d659oii8luni853kh8cfneo060cif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5WMx43kfj9rX1N0gry_zJYZFwSa_wV3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790432252071-fb8d659oii8luni853kh8cfneo060cif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

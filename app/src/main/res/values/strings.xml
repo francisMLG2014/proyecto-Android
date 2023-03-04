@@ -35,9 +35,10 @@
     <string name="fecha_nacimiento">Fecha nacimiento</string>
     <string name="seleccionar">Seleccionar</string>
     <string name="error_contrasena">Mínimo 6 caracteres</string>
-    <string name="error_campo_no_valido">Campo no valido</string>
+    <string name="error_campo_no_valido">Campo no válido</string>
     <string name="cargando_elementos">Cargando elementos...</string>
-
+    <string name="completa_campos">Completa todos los campos</string>
+    <string name="algo_ha_ido_mal">Algo ha ido mal</string>
     <!--Pantalla principal-->
     <string name="perfil">Perfil</string>
     <string name="amigos">Amigos</string>

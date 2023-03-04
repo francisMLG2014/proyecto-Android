@@ -100,7 +100,7 @@ class PantallaLogin : ActividadMadre() {
 
 
     private fun comprobarCampos():Boolean{
-        var bool:Boolean=true
+            var bool=true
             if(this.edtEmail.text.isBlank()){
                 edtEmail.error=R.string.error_campo_no_valido.toString()
                 bool=false
@@ -114,7 +114,6 @@ class PantallaLogin : ActividadMadre() {
 
 
     private fun iniciarSesion():Unit{
-        //TODO Intento de inicio de sesion con email y contrasena de firebase.
         val auth:FirebaseAuth=FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(this.edtEmail.text.toString(),this.edtContrasena.text.toString()).addOnCompleteListener {
             if(it.isSuccessful){
@@ -123,9 +122,9 @@ class PantallaLogin : ActividadMadre() {
                     binding.campoEmail.text.toString(),
                     binding.campoContraseA.text.toString()
                 )*/
-
                 intent.extras?.putString("Email",edtEmail.text.toString())
                 intent.extras?.putString("Contrasena",edtContrasena.text.toString())
+                intent.extras?.putBoolean("register",false)
                 cambiarPantalla(PantallaCargandoDatos::class.java,intent.extras)
 
             }else{
@@ -133,7 +132,7 @@ class PantallaLogin : ActividadMadre() {
                 it.exception?.printStackTrace()
                 Toast.makeText(
                     this,
-                    it.exception.toString(),
+                    R.string.algo_ha_ido_mal,
                     Toast.LENGTH_LONG
                 ).show()
             }

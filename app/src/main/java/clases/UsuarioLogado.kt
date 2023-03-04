@@ -24,31 +24,23 @@ class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     constructor(parcel: Parcel, bool:Boolean) : this(
-        parcel.readString()!!,
+        parcel.readString(),
         parcel.readString(),
         parcel.readParcelable<Bitmap>(Bitmap::class.java.classLoader,Bitmap::class.java),
-        parcel.readInt(),
-        parcel.readInt(),
-        Instant.ofEpochMilli(parcel.readLong())
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate(),
-        Instant.ofEpochMilli(parcel.readLong())
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
+        LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
         parcel.createTypedArrayList(Usuario.CREATOR)
     )
     constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
+        parcel.readString(),
         parcel.readString(),
         parcel.readParcelable<Bitmap>(Bitmap::class.java.classLoader),
-        parcel.readInt(),
-        parcel.readInt(),
-        Instant.ofEpochMilli(parcel.readLong())
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate(),
-        Instant.ofEpochMilli(parcel.readLong())
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
+        LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
         parcel.createTypedArrayList(Usuario.CREATOR)
     )
 

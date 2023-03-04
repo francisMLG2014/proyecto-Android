@@ -58,8 +58,8 @@ open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,
         parcel.writeParcelable(imagenUsuario, flags)
         parcel.writeValue(puntosActuales)
         parcel.writeValue(totalPuntosRegistrados)
-        parcel.writeValue(Date.from(fechaNacimiento?.atStartOfDay()!!.toInstant(ZoneOffset.UTC)).time)
-        parcel.writeValue(Date.from(fechaRegistro?.atStartOfDay()!!.toInstant(ZoneOffset.UTC)).time)
+        parcel.writeValue(fechaNacimiento?.toEpochDay())
+        parcel.writeValue((fechaRegistro?.toEpochDay()))
     }
 
     override fun describeContents(): Int {

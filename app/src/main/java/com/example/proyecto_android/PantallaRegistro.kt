@@ -1,17 +1,17 @@
 package com.example.proyecto_android
 
 import android.app.DatePickerDialog
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import clases.Usuario
 import clases.UsuarioLogado
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
 import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,30 +34,54 @@ class PantallaRegistro : ActividadMadre() {
             edtContrasena.setText(bundle.getString("Contrasena"))
         }
     }
-    //TODO Crear un datepicker para recoger la fecha de nacimiento
-
     override fun onStart() {
         super.onStart()
         btnRegistrarme.setOnClickListener(){
-            //TODO Aqui tienes que hacer que recoja los datos y se registre correctamente
-            Toast.makeText(this,R.string.no_implementado, Toast.LENGTH_SHORT).show()
+            if(comprobarCampos()){
+                val r=Random()
+                val auth:FirebaseAuth=FirebaseAuth.getInstance()
+//TODO faltan las imagenes por subirse a bbdd. Lo demás se sube sin problemas
+                var bitmapUser:Bitmap=BitmapFactory.decodeResource(resources, if (r.nextBoolean()) R.drawable.libro1 else R.drawable.libro2)
+
+                auth.createUserWithEmailAndPassword(edtEmail.text.toString(),edtContrasena.text.toString()).addOnCompleteListener(){
+                    //Usando it podemos  comprobar el comportamiento
+                    if(it.isSuccessful){
+
+                        var nuevoUser:UsuarioLogado=UsuarioLogado(edtNombreUsuario.text.toString(),edtEmail.text.toString(),bitmapUser,0,0,fechaNacimiento,LocalDate.now(),ArrayList<Usuario>())
+
+                        this.usuario=nuevoUser
+                        var bundle=Bundle()
+                        bundle.putBoolean("registro",true)
+                        cambiarPantalla(PantallaCargandoDatos::class.java,bundle)
+                    }else{
+                         it.exception?.printStackTrace()
+                        Toast.makeText(this,R.string.algo_ha_ido_mal,Toast.LENGTH_SHORT).show()
+                     }
+                }
+
+
+
+            }else{
+                Toast.makeText(this,R.string.completa_campos,Toast.LENGTH_LONG).show()
+            }
+
+
         }
         btnIniciarSesion.setOnClickListener(){
-            val bundle:Bundle=Bundle()
-            bundle.putString("Email",edtEmail.text.toString())
-            bundle.putString("Contrasena",edtContrasena.text.toString())
-            var fecha:LocalDate=LocalDate.now()
-            this.usuario= UsuarioLogado("Franchute","fran@gmail.com",null,10,200
-                ,fecha, fecha,ArrayList<Usuario>())
-            this.cambiarPantalla(PantallaLogin::class.java,bundle)
+            intent.extras?.putString("Email",edtEmail.text.toString())
+            intent.extras?.putString("Contrasena",edtContrasena.text.toString())
+            /*var fecha:LocalDate=LocalDate.now()
+            var bitmapUser= BitmapFactory.decodeResource(resources, R.drawable.libro1)
+            this.usuario= UsuarioLogado("Franchute","fran@gmail.com",bitmapUser,10,200
+                ,fecha, fecha,ArrayList<Usuario>())*/
+           this.cambiarPantalla(PantallaLogin::class.java,intent.extras)
         }
         val dateSetListener: DatePickerDialog.OnDateSetListener =
             DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, year: Int, month: Int, day: Int ->
-
-                val hoy: LocalDate = LocalDate.now()
-                fechaNacimiento= LocalDate.of(year, month, day);
+                fechaNacimiento= LocalDate.of(year, month+1, day);
                 /*Aqui es donde deberia meter el codigo que quiero que se haga a la vez que se lee la fecha*/
                 btnFechaNacimiento.text = fechaNacimiento.toString()
+                btnFechaNacimiento.error=null
             }
 
         btnFechaNacimiento.setOnClickListener(){
@@ -86,5 +110,26 @@ class PantallaRegistro : ActividadMadre() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+    private fun comprobarCampos():Boolean{
+        var bool=true
+        if(edtNombreUsuario.text.isBlank()){
+            edtNombreUsuario.error=R.string.error_campo_no_valido.toString()
+            bool=false
+        }
+        if(edtEmail.text.isBlank()){
+            edtEmail.error=R.string.error_campo_no_valido.toString()
+            bool=false
+        }
+        if(edtContrasena.text.isBlank()||edtContrasena.text.length<6){
+            edtContrasena.error=R.string.error_campo_no_valido.toString()
+            bool=false
+        }
+        if(fechaNacimiento==null){
+            btnFechaNacimiento.error=R.string.error_campo_no_valido.toString()
+            bool=false
+        }
+
+        return bool
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources translatable="false">
+    <!--Colecciones-->
+    <string name="coleccion_usuarios">usuarios</string>
+    <string name="campo_nombreUsuario">nombreUsuario</string>
+    <string name="campo_email">email</string>
+    <string name="campo_imagen">imagen</string>
+    <string name="campo_puntos_actuales">puntosActuales</string>
+    <string name="campo_puntos_totales">puntosTotales</string>
+    <string name="campo_fecha_nacimiento">fechaNacimiento</string>
+    <string name="campo_fecha_registro">fechaRegistro</string>
+    <string name="campo_amigos">amigos</string>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="coleccion_desafios">desafios</string>
+
+
+
+
+
+    <!--Rutas-->
+    <string name="ruta_imagenes_usuarios">imagenesUsuario</string>
+
+    <!--Formatos-->
+    <string name="formato_fecha">dd/MM/yyyy</string>
+    <string name="formato_imagen_png">.png</string>
+    <string name="formato_imagen_jpg">.jpg</string>
+
+
+
+
+</resources>
