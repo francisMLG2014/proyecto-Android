@@ -15,39 +15,28 @@ import java.time.ZoneId
 /**
  * Clase que contiene los datos necesarios para crear al usuario logado de nuestra aplicacion
  */
-class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap?, puntosActuales:Int?, totalPuntosRegistrados:Int?, fechaNacimiento: LocalDate?, fechaRegistro: LocalDate?,listaDeAmigos : ArrayList<Usuario>?)
+class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: String?, puntosActuales:Int?, totalPuntosRegistrados:Int?, fechaNacimiento: LocalDate?, fechaRegistro: LocalDate?,listaDeAmigos : ArrayList<Usuario>?,ruta:String?)
     : Usuario(nombreUsuario,email,imagenUsuario,puntosActuales,totalPuntosRegistrados,fechaNacimiento,fechaRegistro), Parcelable {
     var listaAmigos : ArrayList<Usuario>?= listaDeAmigos
+    var ruta:String?=ruta
 
-
-
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    constructor(parcel: Parcel, bool:Boolean) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readParcelable<Bitmap>(Bitmap::class.java.classLoader,Bitmap::class.java),
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
-        LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
-        parcel.createTypedArrayList(Usuario.CREATOR)
-    )
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readParcelable<Bitmap>(Bitmap::class.java.classLoader),
+        parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int,
         LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
         LocalDate.ofEpochDay(parcel.readValue(Long::class.java.classLoader) as Long),
-        parcel.createTypedArrayList(Usuario.CREATOR)
+        parcel.createTypedArrayList(Usuario.CREATOR),
+        parcel.readString()
     )
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         super.writeToParcel(parcel, flags)
         parcel.writeTypedList(listaAmigos)
+        parcel.writeString(ruta)
     }
 
     override fun describeContents(): Int {
@@ -58,11 +47,9 @@ class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: Bitmap
 
         override fun createFromParcel(parcel: Parcel): UsuarioLogado {
 
-            return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                UsuarioLogado(parcel, true)
-            }else{
-                UsuarioLogado(parcel)
-            }
+
+            return UsuarioLogado(parcel)
+
         }
 
         override fun newArray(size: Int): Array<UsuarioLogado?> {

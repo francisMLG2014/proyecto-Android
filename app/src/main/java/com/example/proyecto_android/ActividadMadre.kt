@@ -14,24 +14,26 @@ open abstract class ActividadMadre : AppCompatActivity() {
 
     }
 
-     fun <T>cambiarPantalla(clase:Class<T>,bundle: Bundle?):Unit{
-        var intent:Intent=Intent(this,clase)
+     fun <T>cambiarPantalla(clase:Class<T>,bundle: Bundle?):Unit {
+         var intent: Intent = Intent(this, clase)
 
-         if(bundle!=null) {
+         if (bundle != null) {
              intent.putExtras(bundle)
+
+             intent.putExtra(getString(R.string.variable_usuario), usuario)
+             this.startActivity(intent)
          }
-        intent.putExtra("usuario",usuario)
-        this.startActivity(intent)
-    }
+     }
 
-     fun recogerUsuario(intent:Intent?):Unit{
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.usuario=intent?.getParcelableExtra("usuario",UsuarioLogado::class.java)
-        }else{
-            this.usuario=intent?.getParcelableExtra("usuario")
-        }
 
-    }
+         fun recogerUsuario(intent: Intent?): Unit {
+             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                 this.usuario = intent?.getParcelableExtra(getString(R.string.variable_usuario), UsuarioLogado::class.java)
+             } else {
+                 this.usuario = intent?.getParcelableExtra(getString(R.string.variable_usuario))
+             }
+
+         }
 
 
 

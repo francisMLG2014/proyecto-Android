@@ -23,6 +23,9 @@ class PantallaRegistro : ActividadMadre() {
     private val btnFechaNacimiento by lazy{this.findViewById<Button>(R.id.btnRegistroFechaNacimiento)}
     private val edtNombreUsuario by lazy{this.findViewById<EditText>(R.id.edtRegistroNombreUsuario)}
     private var fechaNacimiento:LocalDate?=null
+    //TODO Por ahora almaceno las imagenes iniciales aqui. En el futuro lo cambiaré
+    private val libro1="resources/libro1.jpg"
+    private val libro2="resources/libro2.jpg"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +33,8 @@ class PantallaRegistro : ActividadMadre() {
         recogerUsuario(intent)
         var bundle:Bundle?=intent.extras
         if (bundle != null) {
-            edtEmail.setText(bundle.getString("Email"))
-            edtContrasena.setText(bundle.getString("Contrasena"))
+            edtEmail.setText(bundle.getString(getString(R.string.variable_email)))
+            edtContrasena.setText(bundle.getString(getString(R.string.variable_contrasena)))
         }
     }
     override fun onStart() {
@@ -40,41 +43,30 @@ class PantallaRegistro : ActividadMadre() {
             if(comprobarCampos()){
                 val r=Random()
                 val auth:FirebaseAuth=FirebaseAuth.getInstance()
-//TODO faltan las imagenes por subirse a bbdd. Lo demás se sube sin problemas
-                var bitmapUser:Bitmap=BitmapFactory.decodeResource(resources, if (r.nextBoolean()) R.drawable.libro1 else R.drawable.libro2)
-
                 auth.createUserWithEmailAndPassword(edtEmail.text.toString(),edtContrasena.text.toString()).addOnCompleteListener(){
                     //Usando it podemos  comprobar el comportamiento
                     if(it.isSuccessful){
-
-                        var nuevoUser:UsuarioLogado=UsuarioLogado(edtNombreUsuario.text.toString(),edtEmail.text.toString(),bitmapUser,0,0,fechaNacimiento,LocalDate.now(),ArrayList<Usuario>())
+                        var imagen=if (r.nextBoolean()) libro1 else libro2
+                        var nuevoUser:UsuarioLogado=UsuarioLogado(edtNombreUsuario.text.toString(),edtEmail.text.toString(),imagen,0,0,fechaNacimiento,LocalDate.now(),ArrayList<Usuario>(),"")
 
                         this.usuario=nuevoUser
                         var bundle=Bundle()
-                        bundle.putBoolean("registro",true)
+                        bundle.putBoolean(getString(R.string.variable_registro),true)
                         cambiarPantalla(PantallaCargandoDatos::class.java,bundle)
                     }else{
                          it.exception?.printStackTrace()
                         Toast.makeText(this,R.string.algo_ha_ido_mal,Toast.LENGTH_SHORT).show()
                      }
                 }
-
-
-
             }else{
                 Toast.makeText(this,R.string.completa_campos,Toast.LENGTH_LONG).show()
             }
-
-
         }
         btnIniciarSesion.setOnClickListener(){
-            intent.extras?.putString("Email",edtEmail.text.toString())
-            intent.extras?.putString("Contrasena",edtContrasena.text.toString())
-            /*var fecha:LocalDate=LocalDate.now()
-            var bitmapUser= BitmapFactory.decodeResource(resources, R.drawable.libro1)
-            this.usuario= UsuarioLogado("Franchute","fran@gmail.com",bitmapUser,10,200
-                ,fecha, fecha,ArrayList<Usuario>())*/
-           this.cambiarPantalla(PantallaLogin::class.java,intent.extras)
+            var bundle:Bundle=Bundle()
+            bundle.putString(getString(R.string.variable_email),edtEmail.text.toString())
+            bundle.putString(getString(R.string.variable_contrasena),edtContrasena.text.toString())
+           this.cambiarPantalla(PantallaLogin::class.java,bundle)
         }
         val dateSetListener: DatePickerDialog.OnDateSetListener =
             DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, year: Int, month: Int, day: Int ->
@@ -93,7 +85,7 @@ class PantallaRegistro : ActividadMadre() {
                     calendario.get(Calendar.MONTH),
                     calendario.get(Calendar.DAY_OF_MONTH)
                 )
-            datePicker.setMessage(R.string.fecha_nacimiento.toString())
+            datePicker.setMessage(getString(R.string.fecha_nacimiento))
             datePicker.show()
         }
 

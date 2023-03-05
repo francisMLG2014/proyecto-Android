@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
+
     <!--Colecciones-->
     <string name="coleccion_usuarios">usuarios</string>
     <string name="campo_nombreUsuario">nombreUsuario</string>
@@ -25,7 +26,17 @@
     <string name="formato_imagen_png">.png</string>
     <string name="formato_imagen_jpg">.jpg</string>
 
+    <!--Variables-->
+    <string name="variable_usuario">usuario</string>
+    <string name="variable_registro">registro</string>
+    <string name="variable_email">Email</string>
+    <string name="variable_contrasena">Contrasena</string>
+    <string name="variable_shared_preferences">MisPreferencias</string>
 
-
+    <!--Shared Preferences-->
+    <string name="shared_preferences_email">email</string>
+    <string name="shared_preferences_switch_email">switchEmail</string>
+    <string name="shared_preferences_idioma">idioma</string>
+    <string name="shared_preferences_idioma_defval">en</string>
 
 </resources>

@@ -30,24 +30,23 @@ class PantallaLogin : ActividadMadre() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_login)
         recogerUsuario(intent)
-        Toast.makeText(this,this.usuario?.nombreUsuario+" - "+this.usuario?.email,Toast.LENGTH_SHORT).show()
-        Toast.makeText(this,this.usuario?.puntosActuales.toString()+" - "+this.usuario?.totalPuntosRegistrados.toString(),Toast.LENGTH_SHORT).show()
-        Toast.makeText(this,""+this.usuario?.fechaNacimiento.toString()+" - "+this.usuario?.fechaRegistro.toString(),Toast.LENGTH_SHORT).show()
-
     }
 
     override fun onStart() {
         super.onStart()
-        val preferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE)
-        if(preferences.getBoolean("switchEmail",false)){
+        val preferences = getSharedPreferences(getString(R.string.variable_shared_preferences), Context.MODE_PRIVATE)
+        if(preferences.getBoolean(getString(R.string.shared_preferences_switch_email),false)){
             switchGuardarEmail.isChecked=true
-            edtEmail.setText(preferences.getString("email",""))
+            edtEmail.setText(preferences.getString(getString(R.string.shared_preferences_email),""))
+        }else{
+            edtEmail.setText(intent.extras?.getString(getString(R.string.variable_email)))
+            edtContrasena.setText(intent.extras?.getString(getString(R.string.variable_contrasena)))
         }
 
         btnRegistrarme.setOnClickListener(){
             val bundle:Bundle=Bundle()
-            bundle.putString("Email",edtEmail.text.toString())
-            bundle.putString("Contrasena",edtContrasena.text.toString())
+            bundle.putString(getString(R.string.variable_email),edtEmail.text.toString())
+            bundle.putString(getString(R.string.variable_contrasena),edtContrasena.text.toString())
             this.cambiarPantalla(PantallaRegistro::class.java,bundle)
 
         }
@@ -61,8 +60,8 @@ class PantallaLogin : ActividadMadre() {
 
                 if (switchGuardarEmail.isChecked) {
                     val editor=preferences.edit()
-                    editor.putBoolean("switchEmail", true)
-                    editor.putString("email", edtEmail.text.toString())
+                    editor.putBoolean(getString(R.string.shared_preferences_switch_email), true)
+                    editor.putString(getString(R.string.shared_preferences_switch_email), edtEmail.text.toString())
                     editor.commit()
                 }
                 this.cambiarPantalla(PantallaPrincipal::class.java, null)
@@ -71,10 +70,10 @@ class PantallaLogin : ActividadMadre() {
         switchGuardarEmail.setOnClickListener(){
             val editor=preferences.edit()
             if(!switchGuardarEmail.isChecked){
-                editor.putBoolean("switchEmail",false)
+                editor.putBoolean(getString(R.string.shared_preferences_switch_email),false)
                 editor.commit()
             }else{
-                editor.putBoolean("switchEmail",true)
+                editor.putBoolean(getString(R.string.shared_preferences_switch_email),true)
                 editor.commit()
             }
         }
@@ -122,10 +121,12 @@ class PantallaLogin : ActividadMadre() {
                     binding.campoEmail.text.toString(),
                     binding.campoContraseA.text.toString()
                 )*/
-                intent.extras?.putString("Email",edtEmail.text.toString())
-                intent.extras?.putString("Contrasena",edtContrasena.text.toString())
-                intent.extras?.putBoolean("register",false)
-                cambiarPantalla(PantallaCargandoDatos::class.java,intent.extras)
+                var bundle:Bundle=Bundle()
+                bundle.putString("Email",edtEmail.text.toString())
+                bundle.putString("Contrasena",edtContrasena.text.toString())
+                bundle.putBoolean("register",false)
+
+                cambiarPantalla(PantallaCargandoDatos::class.java,bundle)
 
             }else{
                 //TODO hacer un error en condiciones cuando falle el login

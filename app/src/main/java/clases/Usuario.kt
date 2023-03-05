@@ -15,11 +15,11 @@ import java.util.*
 /**
  * Clase que contiene los datos necesarios para almacenar los datos de un usuario
  */
-open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,puntosActuales: Int?,totalPuntosRegistrados: Int?,fechaNacimiento: LocalDate?,fechaRegistro: LocalDate?) :  Parcelable{
+open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: String?,puntosActuales: Int?,totalPuntosRegistrados: Int?,fechaNacimiento: LocalDate?,fechaRegistro: LocalDate?) :  Parcelable{
 
     var nombreUsuario : String? =nombreUsuario
      var email : String? =email
-     var imagenUsuario : Bitmap? =imagenUsuario
+     var imagenUsuario : String? =imagenUsuario
      var puntosActuales : Int? =puntosActuales
      var totalPuntosRegistrados : Int? =totalPuntosRegistrados
      var fechaNacimiento : LocalDate? =fechaNacimiento
@@ -40,13 +40,7 @@ open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,
     constructor(parcel: Parcel) : this() {
         nombreUsuario = parcel.readString()
         email = parcel.readString()
-
-            if (Build.VERSION.SDK_INT >= TIRAMISU) {
-                imagenUsuario = parcel.readParcelable(Bitmap::class.java.classLoader,Bitmap::class.java)
-            }else{
-                imagenUsuario = parcel.readParcelable(Bitmap::class.java.classLoader)
-            }
-
+        imagenUsuario = parcel.readString()
         puntosActuales = parcel.readValue(Int::class.java.classLoader) as? Int
         totalPuntosRegistrados = parcel.readValue(Int::class.java.classLoader) as? Int
         fechaNacimiento=LocalDate.ofEpochDay(parcel.readLong())
@@ -55,7 +49,7 @@ open class Usuario(nombreUsuario: String?,email: String?,imagenUsuario: Bitmap?,
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nombreUsuario)
         parcel.writeString(email)
-        parcel.writeParcelable(imagenUsuario, flags)
+        parcel.writeString(imagenUsuario)
         parcel.writeValue(puntosActuales)
         parcel.writeValue(totalPuntosRegistrados)
         parcel.writeValue(fechaNacimiento?.toEpochDay())

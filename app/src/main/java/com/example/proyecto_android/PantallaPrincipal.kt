@@ -1,12 +1,18 @@
 package com.example.proyecto_android
 
+import android.graphics.BitmapFactory
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import clases.DAOUsuarioLogado
 import clases.Usuario
 import clases.UsuarioLogado
+import java.io.File
 
 class PantallaPrincipal : ActividadMadre() {
     private val btnDesafios by lazy{this.findViewById<Button>(R.id.btnPrincipalDesafios)}
@@ -16,6 +22,7 @@ class PantallaPrincipal : ActividadMadre() {
     private val btnAjustes by lazy{this.findViewById<Button>(R.id.btnPrincipalAjustes)}
     private val tvNombreUsuario by lazy{this.findViewById<TextView>(R.id.tvPrincipalNombreUsuario)}
     private val tvPuntosActuales by lazy{this.findViewById<TextView>(R.id.tvPrincipalPuntosActuales)}
+    private val ivImagen by lazy{this.findViewById<ImageView>(R.id.ivPrincipal)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +34,15 @@ class PantallaPrincipal : ActividadMadre() {
         super.onStart()
         tvNombreUsuario.text=usuario?.nombreUsuario
         tvPuntosActuales.text=usuario?.puntosActuales.toString()
+        Toast.makeText(this,usuario?.nombreUsuario+" - "+usuario?.email,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,usuario?.imagenUsuario+" - "+usuario?.ruta,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,usuario?.puntosActuales.toString()+" - "+usuario?.totalPuntosRegistrados.toString(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,usuario?.fechaNacimiento.toString()+" - "+usuario?.fechaRegistro.toString(),Toast.LENGTH_SHORT).show()
 
+
+        var file=File(filesDir,usuario?.ruta)
+        val bitmap=BitmapFactory.decodeFile(file.toString())
+        ivImagen.setImageBitmap(bitmap)
       /*  btnDesafios.setOnClickListener(){
             cambiarPantalla()
         }

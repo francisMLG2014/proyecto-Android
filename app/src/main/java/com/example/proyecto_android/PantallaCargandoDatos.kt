@@ -7,6 +7,10 @@ import android.widget.TextView
 import android.widget.Toast
 import clases.DAOUsuarioLogado
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
 class PantallaCargandoDatos : ActividadMadre() {
@@ -21,33 +25,30 @@ class PantallaCargandoDatos : ActividadMadre() {
     override  fun onStart() {
         super.onStart()
         var dao:DAOUsuarioLogado= DAOUsuarioLogado(this)
-        if(intent.extras?.getBoolean("registro")==true){
+        try{
+        if(intent.extras?.getBoolean(getString(R.string.variable_registro))==true){
             //REGISTRO
-            try{dao.registrarNuevoUsuario(this.usuario)
-                tvDatos.text=R.string.bienvenida.toString()+" "+this.usuario?.nombreUsuario
-            }catch (e: Exception){
-                Toast.makeText(this,R.string.algo_ha_ido_mal,Toast.LENGTH_LONG)
-                cambiarPantalla(PantallaRegistro::class.java,intent.extras)
+            GlobalScope.launch(Dispatchers.Main) {
+                dao.registrarNuevoUsuario(usuario)
+                tvDatos.text=getString(R.string.bienvenida)+" "+usuario?.nombreUsuario
+                delay(1000)
+                cambiarPantalla(PantallaPrincipal::class.java,intent.extras)
                 finish()
             }
         }else{
             //LOGIN
-            Log.v("ERROR","NO HA ENTRADO")
+            GlobalScope.launch(Dispatchers.Main) {
+                usuario = dao.recuperarDatosUsuarioLogado(intent.extras?.getString(getString(R.string.variable_email))!!)
+                tvDatos.text=getString(R.string.bienvenida)+" "+usuario?.nombreUsuario
+                delay(1000)
+                cambiarPantalla(PantallaPrincipal::class.java,intent.extras)
+                finish()
+            }
         }
-
-
-        cambiarPantalla(PantallaPrincipal::class.java,intent.extras)
-
-
-    }
-    private fun esperar(millis:Long){
-        try{
-        var n=System.currentTimeMillis()
-        while(millis>System.currentTimeMillis()-n){
-            Thread.sleep(50)
-        }}catch (e:Exception){
-
+        }catch (e: Exception){
+            Toast.makeText(this,R.string.algo_ha_ido_mal,Toast.LENGTH_LONG)
+            cambiarPantalla(PantallaRegistro::class.java,intent.extras)
+            finish()
         }
     }
-
 }
