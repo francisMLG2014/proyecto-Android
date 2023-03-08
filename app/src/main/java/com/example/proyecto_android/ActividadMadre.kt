@@ -15,14 +15,14 @@ open abstract class ActividadMadre : AppCompatActivity() {
     }
 
      fun <T>cambiarPantalla(clase:Class<T>,bundle: Bundle?):Unit {
-         var intent: Intent = Intent(this, clase)
+         var intent = Intent(this, clase)
 
          if (bundle != null) {
              intent.putExtras(bundle)
-
+         }
              intent.putExtra(getString(R.string.variable_usuario), usuario)
              this.startActivity(intent)
-         }
+
      }
 
 

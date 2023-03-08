@@ -38,5 +38,8 @@
     <string name="shared_preferences_switch_email">switchEmail</string>
     <string name="shared_preferences_idioma">idioma</string>
     <string name="shared_preferences_idioma_defval">en</string>
+    <string name="shared_preferences_idioma_en">en</string>
+    <string name="shared_preferences_idioma_es">es</string>
+    <string name="shared_preferences_idioma_fr">fr</string>
 
 </resources>

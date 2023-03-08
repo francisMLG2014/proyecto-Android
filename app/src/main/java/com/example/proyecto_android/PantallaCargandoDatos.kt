@@ -1,11 +1,13 @@
 package com.example.proyecto_android
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import clases.DAOUsuarioLogado
+import clases.PreferenciasAplicacion
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,8 +27,10 @@ class PantallaCargandoDatos : ActividadMadre() {
     override  fun onStart() {
         super.onStart()
         var dao:DAOUsuarioLogado= DAOUsuarioLogado(this)
+        var reg=intent.extras?.getBoolean(getString(R.string.variable_registro))
         try{
-        if(intent.extras?.getBoolean(getString(R.string.variable_registro))==true){
+
+        if(reg==true){
             //REGISTRO
             GlobalScope.launch(Dispatchers.Main) {
                 dao.registrarNuevoUsuario(usuario)
@@ -37,6 +41,7 @@ class PantallaCargandoDatos : ActividadMadre() {
             }
         }else{
             //LOGIN
+
             GlobalScope.launch(Dispatchers.Main) {
                 usuario = dao.recuperarDatosUsuarioLogado(intent.extras?.getString(getString(R.string.variable_email))!!)
                 tvDatos.text=getString(R.string.bienvenida)+" "+usuario?.nombreUsuario
@@ -47,7 +52,12 @@ class PantallaCargandoDatos : ActividadMadre() {
         }
         }catch (e: Exception){
             Toast.makeText(this,R.string.algo_ha_ido_mal,Toast.LENGTH_LONG)
-            cambiarPantalla(PantallaRegistro::class.java,intent.extras)
+            if(reg==true){
+                cambiarPantalla(PantallaRegistro::class.java,intent.extras)
+            }else{
+                cambiarPantalla(PantallaLogin::class.java,intent.extras)
+            }
+
             finish()
         }
     }

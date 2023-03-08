@@ -17,7 +17,7 @@ import java.time.ZoneId
  */
 class UsuarioLogado(nombreUsuario: String?, email:String?, imagenUsuario: String?, puntosActuales:Int?, totalPuntosRegistrados:Int?, fechaNacimiento: LocalDate?, fechaRegistro: LocalDate?,listaDeAmigos : ArrayList<Usuario>?,ruta:String?)
     : Usuario(nombreUsuario,email,imagenUsuario,puntosActuales,totalPuntosRegistrados,fechaNacimiento,fechaRegistro), Parcelable {
-    var listaAmigos : ArrayList<Usuario>?= listaDeAmigos
+    var listaAmigos : ArrayList<Usuario>?= listaDeAmigos //TODO esta variable en realidad deberia ser un hashmap. Revisarlo en un futuro
     var ruta:String?=ruta
 
     constructor(parcel: Parcel) : this(

@@ -1,40 +1,56 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_implementado">Not yet implemented</string>
     <!--Login and registration-->
     <string name="app_name">Fran\'s App</string>
-    <string name="inicio_sesion">Login</string>
+    <string name="inicio_sesion">Log in</string>
     <string name="iniciar_sesion">Log in</string>
-    <string name="inicia_sesion">Sign in</string>
+    <string name="inicia_sesion">Log in</string>
     <string name="no_registrado">Not registered yet?</string>
     <string name="recordar">Remember</string>
-    <string name="registro">Registration</string>
-    <string name="registrarme">Register</string>
+    <string name="registro">Register</string>
+    <string name="registrarme">Register me</string>
     <string name="ya_registrado">Already registered?</string>
     <string name="nombre_usuario">Username</string>
     <string name="email">Email</string>
     <string name="contrasena">Password</string>
-    <string name="ejemplo_nombre_usuario">Velociraptor06</string>
+    <string name="ejemplo_nombre_usuario">Velocirraptor06</string>
     <string name="ejemplo_email">myEmail22@gmail.com</string>
     <string name="ejemplo_contrasena">****</string>
     <string name="preferencias">Preferences</string>
     <string name="bienvenida">Welcome</string>
     <string name="idioma">Language</string>
-    <string name="app_ingles">This app is now on english</string>
-    <string name="guardar_email">Save Email</string>
+    <string name="app_ingles">This app is in Spanish</string>
+    <string name="guardar_email">Save email</string>
     <string name="recuperar_email">Recover email</string>
     <string name="guardado">Saved</string>
     <string name="recuperado">Recovered</string>
     <string name="alerta">Alert</string>
     <string name="comprar">Buy</string>
     <string name="rechazar">Reject</string>
-    <string name="fecha_nacimiento">Birth date</string>
-
-    <string name="seleccionar">Select</string>
-
+    <string name="modo_oscuro">Dark mode</string>
     <string name="recuerdame">Remember me</string>
 
-    <string name="modo_oscuro">Dark mode</string>
+    <string name="fecha_nacimiento">Date of birth</string>
+    <string name="seleccionar">Select</string>
+
+
+    <!--Main screen-->
+    <string name="perfil">Profile</string>
+    <string name="amigos">Friends</string>
+    <string name="ajustes">Settings</string>
+    <string name="desafios">Challenges</string>
+    <string name="recompensas">Rewards</string>
+
+    <!--Actions-->
     <string name="aplicar">Apply</string>
     <string name="cerrar">Close</string>
+    <string name="cargando_elementos">Loading elements...</string>
+    <string name="completa_campos">Fill in all fields</string>
+    <string name="algo_ha_ido_mal">Something went wrong</string>
+
+    <!--Errors-->
+    <string name="error_contrasena">Minimum 6 characters</string>
+    <string name="error_campo_no_valido">Invalid field</string>
+
 </resources>

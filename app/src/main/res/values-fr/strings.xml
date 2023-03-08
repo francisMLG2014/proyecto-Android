@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_implementado">Pas encore implémenté</string>
+    <!--Connexion et inscription-->
+    <string name="app_name">Application de Fran</string>
+    <string name="inicio_sesion">Connexion</string>
+    <string name="iniciar_sesion">Se connecter</string>
+    <string name="inicia_sesion">Connectez-vous</string>
+    <string name="no_registrado">Pas encore inscrit(e) ?</string>
+    <string name="recordar">Se souvenir de moi</string>
+    <string name="registro">Inscription</string>
+    <string name="registrarme">S\'inscrire</string>
+    <string name="ya_registrado">Déjà inscrit(e) ?</string>
+    <string name="nombre_usuario">Nom d\'utilisateur</string>
+    <string name="email">E-mail</string>
+    <string name="contrasena">Mot de passe</string>
+    <string name="ejemplo_nombre_usuario">Velociraptor06</string>
+    <string name="ejemplo_email">monEmail22@gmail.com</string>
+    <string name="ejemplo_contrasena">****</string>
+    <string name="preferencias">Préférences</string>
+    <string name="bienvenida">Bienvenue</string>
+    <string name="idioma">Langue</string>
+    <string name="app_ingles">Cette application est en espagnol</string>
+    <string name="guardar_email">Enregistrer l\'e-mail</string>
+    <string name="recuperar_email">Récupérer l\'e-mail</string>
+    <string name="guardado">Enregistré</string>
+    <string name="recuperado">Récupéré</string>
+    <string name="alerta">Alerte</string>
+    <string name="comprar">Acheter</string>
+    <string name="rechazar">Rejeter</string>
+    <string name="modo_oscuro">Mode sombre</string>
+    <string name="recuerdame">Rappelle-moi</string>
+
+    <string name="fecha_nacimiento">Date de naissance</string>
+    <string name="seleccionar">Sélectionner</string>
+
+    <!--Pantalla principal-->
+    <string name="perfil">Profil</string>
+    <string name="amigos">Amis</string>
+    <string name="ajustes">Paramètres</string>
+    <string name="desafios">Défis</string>
+    <string name="recompensas">Récompenses</string>
+
+    <!--Acciones-->
+    <string name="aplicar">Appliquer</string>
+    <string name="cerrar">Fermer</string>
+    <string name="cargando_elementos">Chargement des éléments...</string>
+    <string name="completa_campos">Remplissez tous les champs</string>
+    <string name="algo_ha_ido_mal">Quelque chose s\'est mal passé</string>
+
+    <!--Errores-->
+    <string name="error_contrasena">Au moins 6 caractères</string>
+    <string name="error_campo_no_valido">Champ non valide</string>
+
+</resources>

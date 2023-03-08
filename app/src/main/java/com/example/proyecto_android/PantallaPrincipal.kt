@@ -1,5 +1,6 @@
 package com.example.proyecto_android
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import clases.DAOUsuarioLogado
+import clases.PreferenciasAplicacion
 import clases.Usuario
 import clases.UsuarioLogado
 import java.io.File
@@ -43,21 +45,36 @@ class PantallaPrincipal : ActividadMadre() {
         var file=File(filesDir,usuario?.ruta)
         val bitmap=BitmapFactory.decodeFile(file.toString())
         ivImagen.setImageBitmap(bitmap)
-      /*  btnDesafios.setOnClickListener(){
-            cambiarPantalla()
-        }
-        btnRecompensas.setOnClickListener(){
-            cambiarPantalla()
-        }
-        btnPerfil.setOnClickListener(){
-            cambiarPantalla()
-        }
-        btnAmigos.setOnClickListener(){
-            cambiarPantalla()
-        }
-        btnAjustes.setOnClickListener(){
-            cambiarPantalla()
-        }*/
+
+
+
+
+          btnDesafios.setOnClickListener(){
+              val preferenciasCompartidas=this.getSharedPreferences(getString(R.string.variable_shared_preferences),
+                Context.MODE_PRIVATE)
+            Toast.makeText(this,preferenciasCompartidas.getBoolean(getString(R.string.variable_registro),true).toString(),Toast.LENGTH_LONG).show()
+            var preferencias= PreferenciasAplicacion(preferenciasCompartidas,this)
+            preferencias.setIdioma(getString(R.string.shared_preferences_idioma_es))
+              recreate()
+          }
+          btnRecompensas.setOnClickListener(){
+              //TODO quitar esta implementacion de aqui
+              val preferenciasCompartidas=this.getSharedPreferences(getString(R.string.variable_shared_preferences),
+                  Context.MODE_PRIVATE)
+              Toast.makeText(this,preferenciasCompartidas.getBoolean(getString(R.string.variable_registro),true).toString(),Toast.LENGTH_LONG).show()
+              var preferencias= PreferenciasAplicacion(preferenciasCompartidas,this)
+              preferencias.setIdioma(getString(R.string.shared_preferences_idioma_en))
+              recreate()
+          }
+        /*  btnPerfil.setOnClickListener(){
+              cambiarPantalla()
+          }
+          btnAmigos.setOnClickListener(){
+              cambiarPantalla()
+          }
+          btnAjustes.setOnClickListener(){
+              cambiarPantalla()
+          }*/
 
     }
 

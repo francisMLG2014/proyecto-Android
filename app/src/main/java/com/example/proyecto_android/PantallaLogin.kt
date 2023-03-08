@@ -35,6 +35,8 @@ class PantallaLogin : ActividadMadre() {
     override fun onStart() {
         super.onStart()
         val preferences = getSharedPreferences(getString(R.string.variable_shared_preferences), Context.MODE_PRIVATE)
+
+
         if(preferences.getBoolean(getString(R.string.shared_preferences_switch_email),false)){
             switchGuardarEmail.isChecked=true
             edtEmail.setText(preferences.getString(getString(R.string.shared_preferences_email),""))
@@ -51,20 +53,14 @@ class PantallaLogin : ActividadMadre() {
 
         }
         btnIniciarSesion.setOnClickListener(){
-            Toast.makeText(this,R.string.no_implementado,Toast.LENGTH_SHORT).show()
-
             if(comprobarCampos()) {
-
-                iniciarSesion()
-
-
                 if (switchGuardarEmail.isChecked) {
                     val editor=preferences.edit()
                     editor.putBoolean(getString(R.string.shared_preferences_switch_email), true)
-                    editor.putString(getString(R.string.shared_preferences_switch_email), edtEmail.text.toString())
+                    editor.putString(getString(R.string.shared_preferences_email), edtEmail.text.toString())
                     editor.commit()
                 }
-                this.cambiarPantalla(PantallaPrincipal::class.java, null)
+                iniciarSesion()
             }
         }
         switchGuardarEmail.setOnClickListener(){
@@ -84,8 +80,8 @@ class PantallaLogin : ActividadMadre() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("Email",edtEmail.text.toString())
-        outState.putString("Contrasena",edtContrasena.text.toString())
+        outState.putString(getString(R.string.variable_email),edtEmail.text.toString())
+        outState.putString(getString(R.string.variable_contrasena),edtContrasena.text.toString())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -116,18 +112,12 @@ class PantallaLogin : ActividadMadre() {
         val auth:FirebaseAuth=FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(this.edtEmail.text.toString(),this.edtContrasena.text.toString()).addOnCompleteListener {
             if(it.isSuccessful){
-                //TODO: Crear conexion a firebase. Pasar a pantalla carga datos con email y contrasena
-                /*usuarioLogado = Usuario(
-                    binding.campoEmail.text.toString(),
-                    binding.campoContraseA.text.toString()
-                )*/
                 var bundle:Bundle=Bundle()
-                bundle.putString("Email",edtEmail.text.toString())
-                bundle.putString("Contrasena",edtContrasena.text.toString())
-                bundle.putBoolean("register",false)
+                bundle.putString(getString(R.string.variable_email),edtEmail.text.toString())
+                bundle.putString(getString(R.string.variable_contrasena),edtContrasena.text.toString())
+                bundle.putBoolean(getString(R.string.variable_registro),false)
 
                 cambiarPantalla(PantallaCargandoDatos::class.java,bundle)
-
             }else{
                 //TODO hacer un error en condiciones cuando falle el login
                 it.exception?.printStackTrace()
