@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/perfil"
+        android:id="@+id/menu_bar_perfil"
+        android:icon="@drawable/ic_baseline_person"/>
+    <item android:title="@string/desafios"
+        android:id="@+id/menu_bar_desafios"
+        android:icon="@drawable/ic_baseline_videogame_asset"/>
+    <item android:title="@string/ajustes"
+        android:id="@+id/menu_bar_ajustes"
+        android:icon="@drawable/ic_baseline_settings"/>
+</menu>

@@ -51,7 +51,6 @@ class DAOUsuarioLogado (c: Context){
         val docRef=db.collection(c.getString(R.string.coleccion_usuarios)).document(email)
             val doc=docRef.get().await()
                 if(doc!=null){
-                    //TODO al recoger los numeros se recogen como Long, no como int. Solucionarlo
                     val nombre=doc.get(c.getString(R.string.campo_nombreUsuario)) as String
                     val email=doc.get(c.getString(R.string.campo_email)) as String
                     val url=doc.get(c.getString(R.string.campo_imagen)) as String

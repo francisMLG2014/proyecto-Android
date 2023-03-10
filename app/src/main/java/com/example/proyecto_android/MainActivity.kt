@@ -16,7 +16,6 @@ class MainActivity : ActividadMadre() {
             Context.MODE_PRIVATE)
         var preferencias=PreferenciasAplicacion(preferenciasCompartidas,this)
         preferencias.setIdioma(preferenciasCompartidas.getString(getString(R.string.shared_preferences_idioma),getString(R.string.shared_preferences_idioma_defval))!!)
-        setContentView(R.layout.activity_main)
 
     }
 

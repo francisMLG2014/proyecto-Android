@@ -35,6 +35,16 @@ open abstract class ActividadMadre : AppCompatActivity() {
 
          }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if(false/*Condicion para desloguearme*/){
+            //Desloguearme
 
+        //TODO este onDestroy se llamará y deslogará al usuario. Si es llamado por un metodo o recurso como recreate() no queremos que deslogue.
+            //Idea: mediante un bundle o preferencias con un boolean deslogar. y trás el if, siempre se pondra en true.
+            // Antes de llamar a recreate u otro metodo se deberá cambiar el boolean
+        }
+        //b.putBoolean("deslogar",true)
+    }
 
 }
