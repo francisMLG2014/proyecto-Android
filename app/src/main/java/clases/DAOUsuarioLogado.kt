@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import com.example.proyecto_android.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -121,6 +122,19 @@ return@withContext usuario
                 }*/
 
     }
+    fun desconectarUsuario():Boolean{
+        try {
+            val auth: FirebaseAuth = FirebaseAuth.getInstance()
+            if (auth.currentUser != null) {
+                auth.signOut()
+            }
+        }catch (e:Exception){
+            return false
+        }
+        return true
+    }
+
+
       fun obtenerExtension(ruta:String?):String{
          var extension=""
          if(ruta!=null) {

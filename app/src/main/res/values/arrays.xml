@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+      <!--Cuando implementemos un nuevo idioma deberemos añadirlos en orden aquí.
+      Las posiciones de ambos arrays con los idiomas deben coincidir o se desincronizarán los idiomas-->
+
+    <array name="array_idiomas_soportados">
+        <item>@string/idioma_soportado_es</item>
+        <item>@string/idioma_soportado_en</item>
+        <item>@string/idioma_soportado_fr</item>
+    </array>
+
+    <array name="array_idiomas_variable">
+        <item>@string/shared_preferences_idioma_es</item>
+        <item>@string/shared_preferences_idioma_en</item>
+        <item>@string/shared_preferences_idioma_fr</item>
+    </array>
+
+
+</resources>

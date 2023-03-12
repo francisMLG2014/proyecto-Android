@@ -30,6 +30,8 @@
     <string name="rechazar">Rejeter</string>
     <string name="modo_oscuro">Mode sombre</string>
     <string name="recuerdame">Rappelle-moi</string>
+    <string name="credenciales_erroneas">Informations d\'identification erronées</string>
+    <string name="cerrar_sesion">Fermer la session</string>
 
     <string name="fecha_nacimiento">Date de naissance</string>
     <string name="seleccionar">Sélectionner</string>
@@ -39,6 +41,7 @@
     <string name="amigos">Amis</string>
     <string name="ajustes">Paramètres</string>
     <string name="desafios">Défis</string>
+    <string name="social">Social</string>
     <string name="recompensas">Récompenses</string>
 
     <!--Acciones-->

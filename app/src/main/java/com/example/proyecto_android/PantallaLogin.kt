@@ -12,6 +12,8 @@ import android.widget.Toast
 import clases.Usuario
 import clases.UsuarioLogado
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -119,13 +121,12 @@ class PantallaLogin : ActividadMadre() {
 
                 cambiarPantalla(PantallaCargandoDatos::class.java,bundle)
             }else{
-                //TODO hacer un error en condiciones cuando falle el login
-                it.exception?.printStackTrace()
-                Toast.makeText(
-                    this,
-                    R.string.algo_ha_ido_mal,
-                    Toast.LENGTH_LONG
-                ).show()
+                when(it.exception!!::class.java){
+                    FirebaseAuthInvalidCredentialsException::class.java,FirebaseAuthInvalidUserException::class.java  -> Toast.makeText(this, this.getString(R.string.credenciales_erroneas), Toast.LENGTH_LONG).show()
+                  }
+
+
+
             }
         }
     }

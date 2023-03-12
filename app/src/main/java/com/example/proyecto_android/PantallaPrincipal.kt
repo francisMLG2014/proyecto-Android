@@ -2,25 +2,16 @@ package com.example.proyecto_android
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
-import android.content.Context
 import android.content.DialogInterface
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.view.menu.MenuView
-import androidx.core.view.children
+import android.widget.*
 import androidx.fragment.app.Fragment
-import clases.PreferenciasAplicacion
-import com.example.proyecto_android.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fragments.FragmentAjustes
 import fragments.FragmentDesafios
 import fragments.FragmentPerfil
-import java.io.File
+import org.w3c.dom.Text
 
 
 class PantallaPrincipal : ActividadMadre() {
@@ -30,26 +21,31 @@ class PantallaPrincipal : ActividadMadre() {
         private val btnAmigos by lazy{this.findViewById<Button>(R.id.btnPrincipalAmigos)}
         private val btnAjustes by lazy{this.findViewById<Button>(R.id.btnPrincipalAjustes)}
         private val ivImagen by lazy{this.findViewById<ImageView>(R.id.ivPrincipal)}
-
+*/
     private val tvNombreUsuario by lazy{this.findViewById<TextView>(R.id.tvPrincipalNombreUsuario)}
     private val tvPuntosActuales by lazy{this.findViewById<TextView>(R.id.tvPrincipalPuntosActuales)}
-*/
+    private val btnSocial by lazy{this.findViewById<Button>(R.id.btnPrincipalSuperior)}
+    private val holderFragment by lazy{this.findViewById<FrameLayout>(R.id.fmPrincipal)}
     private val mbPrincipal by lazy{this.findViewById<BottomNavigationView>(R.id.mbPrincipal)}
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_principal)
         recogerUsuario(intent)
-        cambiarFragment(FragmentDesafios())
+
 
     }
     //TODO mirar fragments y echarle un ojo para esto también
     override fun onStart() {
         super.onStart()
+        tvNombreUsuario?.text=(usuario?.nombreUsuario)
+        tvPuntosActuales?.text=(usuario?.puntosActuales.toString())
 
         mbPrincipal.setOnItemSelectedListener {
             try {
                 when (it.itemId) {
-                    R.id.menu_bar_perfil -> cambiarFragment(FragmentPerfil())
+                    R.id.menu_bar_perfil -> cambiarFragment(FragmentPerfil(this.usuario!!))
                     R.id.menu_bar_desafios -> cambiarFragment(FragmentDesafios())
                     R.id.menu_bar_ajustes -> cambiarFragment(FragmentAjustes())
                 }
@@ -58,6 +54,16 @@ class PantallaPrincipal : ActividadMadre() {
             }
             true
         }
+        if(holderFragment.childCount<1){
+            cambiarFragment(FragmentDesafios())
+            mbPrincipal.selectedItemId=R.id.menu_bar_desafios
+        }
+
+        btnSocial.setOnClickListener(){
+            tvNombreUsuario?.text=(usuario?.nombreUsuario)
+            tvPuntosActuales?.text=(usuario?.puntosActuales.toString())
+        }
+
 
         /*tvNombreUsuario.text=usuario?.nombreUsuario
         tvPuntosActuales.text=usuario?.puntosActuales.toString()
@@ -107,13 +113,21 @@ class PantallaPrincipal : ActividadMadre() {
 
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-    }
+
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
+
     }
+
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        tvNombreUsuario?.text=(usuario?.nombreUsuario)
+        tvPuntosActuales?.text=(usuario?.puntosActuales.toString())
+    }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
 
+    <!--Idiomas soportados-->
+    <string name="idioma_soportado_es">Español</string>
+    <string name="idioma_soportado_en">English</string>
+    <string name="idioma_soportado_fr">Français</string>
+    
     <!--Colecciones-->
     <string name="coleccion_usuarios">usuarios</string>
     <string name="campo_nombreUsuario">nombreUsuario</string>
@@ -37,7 +42,8 @@
     <string name="shared_preferences_email">email</string>
     <string name="shared_preferences_switch_email">switchEmail</string>
     <string name="shared_preferences_idioma">idioma</string>
-    <string name="shared_preferences_idioma_defval">en</string>
+    <string name="shared_preferences_idioma_defval">@string/shared_preferences_idioma_en</string>
+
     <string name="shared_preferences_idioma_en">en</string>
     <string name="shared_preferences_idioma_es">es</string>
     <string name="shared_preferences_idioma_fr">fr</string>

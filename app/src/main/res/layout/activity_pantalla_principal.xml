@@ -7,6 +7,48 @@
     tools:context=".PantallaPrincipal">
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnPrincipalSuperior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/social"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvPrincipalNombreUsuario"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrincipalPuntosActuales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/btnPrincipalSuperior"
+            app:layout_constraintEnd_toStartOf="@+id/tvPrincipalNombreUsuario"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnPrincipalSuperior" />
+
+        <TextView
+            android:id="@+id/tvPrincipalNombreUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/btnPrincipalSuperior"
+            app:layout_constraintEnd_toStartOf="@+id/btnPrincipalSuperior"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvPrincipalPuntosActuales"
+            app:layout_constraintTop_toTopOf="@+id/btnPrincipalSuperior" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <FrameLayout
         android:id="@+id/fmPrincipal"
         android:layout_width="0dp"
@@ -14,9 +56,10 @@
         app:layout_constraintBottom_toTopOf="@+id/mbPrincipal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
     </FrameLayout>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mbPrincipal"
