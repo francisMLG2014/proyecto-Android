@@ -45,6 +45,9 @@
     <string name="social">Social</string>
     <string name="recompensas">Recompensas</string>
 
+    <!--Fragment Perfil-->
+    <string name="cambiar_valores">Cambiar</string>
+
     <!--Acciones-->
     <string name="aplicar">Aplicar</string>
     <string name="cerrar">Cerrar</string>
@@ -56,4 +59,7 @@
     <string name="error_contrasena">Mínimo 6 caracteres</string>
     <string name="error_campo_no_valido">Campo no válido</string>
 
+    <!--Permisos-->
+    <string name="necesitas_conceder_permiso">Debes conceder el permiso para poder usar esta función</string>
+    <string name="no_seleccionaste_nada">No seleccionaste nada</string>
 </resources>

@@ -45,6 +45,9 @@
     <string name="social">Social</string>
     <string name="recompensas">Rewards</string>
 
+    <!--Profile Fragment-->
+    <string name="cambiar_valores">Change</string>
+
     <!--Actions-->
     <string name="aplicar">Apply</string>
     <string name="cerrar">Close</string>
@@ -55,5 +58,9 @@
     <!--Errors-->
     <string name="error_contrasena">Minimum 6 characters</string>
     <string name="error_campo_no_valido">Invalid field</string>
+
+    <!--Permissions-->
+    <string name="necesitas_conceder_permiso">You need to grant permission to use this function</string>
+    <string name="no_seleccionaste_nada">You did not select anything</string>
 
 </resources>

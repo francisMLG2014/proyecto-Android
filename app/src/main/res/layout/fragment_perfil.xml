@@ -9,8 +9,39 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/p1_asparagus_green_3">
+        android:background="@color/p1_asparagus_green_3"
+        android:padding="15dp">
 
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/btnPerfilDesconectar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+            app:layout_constraintTop_toBottomOf="@+id/ivPerfil">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cambiar_valores" />
+
+            <Button
+                android:id="@+id/btnPerfilCambiarImagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campo_imagen" />
+
+            <Button
+                android:id="@+id/btnPerfilCambiarContrasena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contrasena" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/ivPerfil"
@@ -20,7 +51,6 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
@@ -31,9 +61,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/btnPerfilDesconectar"
-            app:layout_constraintEnd_toEndOf="@+id/ivPerfil"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/ivPerfil"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivPerfil"
             app:layout_constraintVertical_bias="0.0">
 
@@ -80,9 +110,9 @@
             android:layout_height="wrap_content"
             android:text="@string/cerrar_sesion"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+            app:layout_constraintEnd_toEndOf="@+id/ivPerfil"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+            app:layout_constraintStart_toStartOf="@+id/ivPerfil"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 

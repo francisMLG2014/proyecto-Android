@@ -32,6 +32,7 @@
     <string name="formato_imagen_jpg">.jpg</string>
 
     <!--Variables-->
+    <integer name="variable_dimensiones_foto">67</integer>
     <string name="variable_usuario">usuario</string>
     <string name="variable_registro">registro</string>
     <string name="variable_email">Email</string>

@@ -44,6 +44,9 @@
     <string name="social">Social</string>
     <string name="recompensas">Récompenses</string>
 
+    <!--Fragment Profil-->
+    <string name="cambiar_valores">Changer</string>
+
     <!--Acciones-->
     <string name="aplicar">Appliquer</string>
     <string name="cerrar">Fermer</string>
@@ -54,5 +57,9 @@
     <!--Errores-->
     <string name="error_contrasena">Au moins 6 caractères</string>
     <string name="error_campo_no_valido">Champ non valide</string>
+
+    <!--Permissions-->
+    <string name="necesitas_conceder_permiso">Vous devez accorder la permission pour utiliser cette fonctionnalité</string>
+    <string name="no_seleccionaste_nada">Vous n\'avez rien sélectionné</string>
 
 </resources>
