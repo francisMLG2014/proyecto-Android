@@ -1,11 +1,16 @@
 package com.example.proyecto_android
 
+import android.Manifest
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fragments.FragmentAjustes
@@ -22,6 +27,7 @@ class PantallaPrincipal : ActividadMadre() {
         private val btnAjustes by lazy{this.findViewById<Button>(R.id.btnPrincipalAjustes)}
         private val ivImagen by lazy{this.findViewById<ImageView>(R.id.ivPrincipal)}
 */
+    private val PERMISO_LEER_ALMACENAMIENTO_EXTERNO=123
     private val tvNombreUsuario by lazy{this.findViewById<TextView>(R.id.tvPrincipalNombreUsuario)}
     private val tvPuntosActuales by lazy{this.findViewById<TextView>(R.id.tvPrincipalPuntosActuales)}
     private val btnSocial by lazy{this.findViewById<Button>(R.id.btnPrincipalSuperior)}
@@ -33,6 +39,8 @@ class PantallaPrincipal : ActividadMadre() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_principal)
         recogerUsuario(intent)
+        comprobarPermisosGaleria()
+        Toast.makeText(this,usuario?.ruta+" - "+usuario?.imagenUsuario,Toast.LENGTH_SHORT).show()
 
 
     }
@@ -69,11 +77,11 @@ class PantallaPrincipal : ActividadMadre() {
         tvPuntosActuales.text=usuario?.puntosActuales.toString()
         */
 
-        Toast.makeText(this,usuario?.nombreUsuario+" - "+usuario?.email,Toast.LENGTH_SHORT).show()
+/*        Toast.makeText(this,usuario?.nombreUsuario+" - "+usuario?.email,Toast.LENGTH_SHORT).show()
         Toast.makeText(this,usuario?.imagenUsuario+" - "+usuario?.ruta,Toast.LENGTH_SHORT).show()
         Toast.makeText(this,usuario?.puntosActuales.toString()+" - "+usuario?.totalPuntosRegistrados.toString(),Toast.LENGTH_SHORT).show()
         Toast.makeText(this,usuario?.fechaNacimiento.toString()+" - "+usuario?.fechaRegistro.toString(),Toast.LENGTH_SHORT).show()
-
+*/
         /*
                var file=File(filesDir,usuario?.ruta)
                val bitmap=BitmapFactory.decodeFile(file.toString())
@@ -154,5 +162,50 @@ class PantallaPrincipal : ActividadMadre() {
         fragmentTransaction.replace(R.id.fmPrincipal,fragment)
         fragmentTransaction.commit()
     }
+
+
+    private fun comprobarPermisosGaleria(){
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            //Permiso no aceptado
+            pedirPermisosGaleria()
+        }else{
+            Toast.makeText(this,"Borra este toast, ya tienes los permisos aceptados",Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    fun pedirPermisosGaleria(){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE) ||
+            ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        {
+            //Ya has rechazado los permisos
+            Toast.makeText(this,"Permisos ya rechazados. Puedes conceder los permisos en ajustes",Toast.LENGTH_LONG).show()
+        }
+        else{
+            ActivityCompat.requestPermissions(this,arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.WRITE_EXTERNAL_STORAGE),PERMISO_LEER_ALMACENAMIENTO_EXTERNO)
+        }
+    }
+
+    //TODO crear strings y hacer toast de aceptacion de permisos
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode==PERMISO_LEER_ALMACENAMIENTO_EXTERNO){
+            if(grantResults.isNotEmpty()&&grantResults.size>1&&grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this,"HAS CONCEDIDO LOS PERMISOS",Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this,"Has rechazado los permisos por primera vez",Toast.LENGTH_LONG).show()
+            }
+
+        }
+
+
+    }
+
 
 }

@@ -99,11 +99,11 @@ class PantallaLogin : ActividadMadre() {
     private fun comprobarCampos():Boolean{
             var bool=true
             if(this.edtEmail.text.isBlank()){
-                edtEmail.error=R.string.error_campo_no_valido.toString()
+                edtEmail.error=getString(R.string.error_campo_no_valido)
                 bool=false
             }
             if(this.edtContrasena.text.isBlank()||this.edtContrasena.text.length<6){
-                edtContrasena.error=R.string.error_contrasena.toString()
+                edtContrasena.error=getString(R.string.error_contrasena)
                 bool=false
             }
         return bool

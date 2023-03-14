@@ -2,10 +2,13 @@ package clases
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
+import android.webkit.MimeTypeMap
 import com.example.proyecto_android.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
@@ -100,28 +103,10 @@ return@withContext usuario
 
             user.ruta=cargarImagenAlmacenamientoInterno(user)
 
-                /*ESTE CODIGO ME SERVIRÁ PARA ACTUALIZAR LAS IMAGENES Y URL DE ELLAS
-                val storageRef = Firebase.storage
-                val imagenesRef =
-                    storageRef.reference.child(c.getString(R.string.ruta_imagenes_usuarios) + "/" + user.email.toString() + c.getString(R.string.formato_imagen_jpg))
-                val stream = ByteArrayOutputStream()
-                user.imagenUsuario?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                val datos = stream.toByteArray()
-                imagenesRef.putBytes(datos).addOnCompleteListener() {
-                    //Trás subirla, actualizamos los datos del usuario y le añadimos la url a su imagen
-                    imagenesRef.downloadUrl.addOnSuccessListener {
-                        URLImagen = it.toString()
-                        //db = FirebaseFirestore.getInstance()
-                        db.collection(c.getString(R.string.coleccion_usuarios)).document(user.email.toString())
-                            .update(c.getString(R.string.campo_imagen), URLImagen)
-                    }.addOnFailureListener(){
-                        throw it
-                    }
-                }.addOnFailureListener(){
-                    throw it
-                }*/
+
 
     }
+
     fun desconectarUsuario():Boolean{
         try {
             val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -135,7 +120,11 @@ return@withContext usuario
     }
 
 
-      fun obtenerExtension(ruta:String?):String{
+    fun obtenerExtension(uri:Uri):String{
+       return MimeTypeMap.getSingleton().getExtensionFromMimeType(c.contentResolver.getType(uri))!!
+    }
+
+    fun obtenerExtension(ruta:String?):String{
          var extension=""
          if(ruta!=null) {
              if (ruta.contains(".")) {
@@ -146,7 +135,7 @@ return@withContext usuario
 
     }
 
-    private suspend fun cargarImagenAlmacenamientoInterno(user: Usuario):String=withContext(
+     suspend fun cargarImagenAlmacenamientoInterno(user: Usuario):String=withContext(
         Dispatchers.IO){
         var ruta:String=""
         ruta=user?.email+obtenerExtension(user.imagenUsuario)
@@ -163,4 +152,90 @@ return@withContext usuario
         var ruta=user?.email+obtenerExtension(user.imagenUsuario)
          return File(c.filesDir, ruta)
     }
+
+
+    public fun rutaStorage(usuario:UsuarioLogado,extension:String):String{
+        var ruta=c.getString(R.string.ruta_imagenes_usuarios)+"/"+usuario.email
+        if(extension.contains(".")){
+            return ruta+extension
+        }
+        return ruta+"."+extension
+
+
+
+     return ruta
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    public suspend fun subirImagen(uri:Uri, usuario:UsuarioLogado):Boolean = withContext(
+        Dispatchers.IO){
+        val extension=obtenerExtension(uri)
+        val nuevaDireccionStorage=rutaStorage(usuario,extension)
+        val viejaDireccionStorage=usuario.imagenUsuario.toString()
+
+        val storage = Firebase.storage
+        val firebase= Firebase.firestore
+        //primero subimos la imagen nueva
+        val imagenUsuarioNuevaRef = storage.reference.child(nuevaDireccionStorage)
+        val subida=imagenUsuarioNuevaRef.putFile(uri)
+            subida.await()
+            if (subida.isSuccessful){
+                //actualizamos la ruta del usuario de la base de datos
+                val actualizacion=firebase.collection(c.getString(R.string.coleccion_usuarios)).document(usuario.email.toString()).update(c.getString(R.string.campo_imagen),nuevaDireccionStorage)
+                    actualizacion.await()
+                    if(actualizacion.isSuccessful){
+                        //actualizamos la direccion nueva en el usuario y la ruta
+                        usuario.imagenUsuario=nuevaDireccionStorage
+                    }else{
+                        return@withContext false
+                    }
+            }else{
+                return@withContext false
+            }
+
+
+
+
+
+
+
+
+
+        //TODO (FUERA DE ESTE METODO)luego la creamos en almacenamiento interno
+
+
+
+
+
+        /*
+        val stream = ByteArrayOutputStream()
+        usuario.imagenUsuario?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val datos = stream.toByteArray()
+        imagenesRef.putBytes(datos).addOnCompleteListener() {
+            //Trás subirla, actualizamos los datos del usuario y le añadimos la url a su imagen
+            imagenesRef.downloadUrl.addOnSuccessListener {
+                URLImagen = it.toString()
+                db = FirebaseFirestore.getInstance()
+                db.collection(c.getString(R.string.coleccion_usuarios)).document(user.email.toString())
+                    .update(c.getString(R.string.campo_imagen), URLImagen)
+            }.addOnFailureListener(){
+                throw it
+            }
+        }.addOnFailureListener(){
+            throw it
+        }
+
+
+
+        */
+        if(!nuevaDireccionStorage.equals(viejaDireccionStorage)){
+            //TODO Borrar vieja direccion, actualizar variable imagenUsuario del usuario
+
+        }
+        return@withContext true
+    }
+
+
+
+
 }
