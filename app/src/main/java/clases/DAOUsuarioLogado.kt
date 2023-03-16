@@ -20,6 +20,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.collections.HashMap
 class DAOUsuarioLogado (c: Context){
+
+    //TODO crear los strings y ponerlos bien. Borrar los toasts inncecesarios.
+
     var c=c
     val formatoFecha = DateTimeFormatter.ofPattern(c.getString(R.string.formato_fecha))
     public suspend fun recuperarDatosUsuarioLogado(email: String): UsuarioLogado? = withContext(
@@ -180,57 +183,19 @@ return@withContext usuario
         val subida=imagenUsuarioNuevaRef.putFile(uri)
             subida.await()
             if (subida.isSuccessful){
+                usuario.imagenUsuario=nuevaDireccionStorage
                 //actualizamos la ruta del usuario de la base de datos
                 val actualizacion=firebase.collection(c.getString(R.string.coleccion_usuarios)).document(usuario.email.toString()).update(c.getString(R.string.campo_imagen),nuevaDireccionStorage)
                     actualizacion.await()
-                    if(actualizacion.isSuccessful){
-                        //actualizamos la direccion nueva en el usuario y la ruta
-                        usuario.imagenUsuario=nuevaDireccionStorage
-                    }else{
+                    if(!actualizacion.isSuccessful){
                         return@withContext false
                     }
             }else{
                 return@withContext false
             }
-
-
-
-
-
-
-
-
-
-        //TODO (FUERA DE ESTE METODO)luego la creamos en almacenamiento interno
-
-
-
-
-
-        /*
-        val stream = ByteArrayOutputStream()
-        usuario.imagenUsuario?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val datos = stream.toByteArray()
-        imagenesRef.putBytes(datos).addOnCompleteListener() {
-            //Trás subirla, actualizamos los datos del usuario y le añadimos la url a su imagen
-            imagenesRef.downloadUrl.addOnSuccessListener {
-                URLImagen = it.toString()
-                db = FirebaseFirestore.getInstance()
-                db.collection(c.getString(R.string.coleccion_usuarios)).document(user.email.toString())
-                    .update(c.getString(R.string.campo_imagen), URLImagen)
-            }.addOnFailureListener(){
-                throw it
-            }
-        }.addOnFailureListener(){
-            throw it
-        }
-
-
-
-        */
         if(!nuevaDireccionStorage.equals(viejaDireccionStorage)){
-            //TODO Borrar vieja direccion, actualizar variable imagenUsuario del usuario
-
+            //Borramos la vieja direccion
+        storage.reference.child(viejaDireccionStorage).delete()
         }
         return@withContext true
     }

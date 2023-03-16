@@ -3,19 +3,17 @@
     <style name="Theme.myApp" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <!-- Customize your theme here. -->
-        <item name="android:textViewStyle">@style/textViewBase</item>
-        <item name="editTextStyle">@style/editTextBase</item>
-        <item name="android:buttonStyle">@style/btnBase</item>
-
     </style>
 
 
     <style name="textViewBase" parent="Widget.MaterialComponents.TextView">
-
         <item name="android:textColor">@color/p2_nyanza_green_5</item>
         <item name="android:background">@color/p2_pakistan_green_1</item>
-
     </style>
+
+
+
+
     <style name="editTextBase" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@color/p2_pakistan_green_1</item>
         <item name="android:background">@color/p2_nyanza_green_5</item>
@@ -25,10 +23,25 @@
 
 
     </style>
+
+
     <style name="btnBase" parent="Widget.AppCompat.Button">
-        <item name="android:padding">10dp</item>
-        <item name="android:textSize">23sp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textAllCaps">false</item>
+
+    </style>
+
+    <style name="btn_acciones" parent="Widget.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+
+    </style>
+    <style name="tv_titulos" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:strokeColor">@color/p1_dark_green_5</item>
     </style>
 
 

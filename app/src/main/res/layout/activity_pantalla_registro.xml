@@ -11,6 +11,7 @@
 
         <TextView
             android:id="@+id/tvRegistroRegistro"
+            style="@style/tv_titulos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/registro"
@@ -29,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.49"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@mipmap/ic_libro" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -149,6 +150,8 @@
 
         <Button
             android:id="@+id/btnRegistroRegistrarme"
+            style="@style/btn_acciones"
+            android:background="@drawable/btn_estilo_redondo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/registrarme"

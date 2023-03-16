@@ -23,7 +23,7 @@ class PantallaRegistro : ActividadMadre() {
     private val btnFechaNacimiento by lazy{this.findViewById<Button>(R.id.btnRegistroFechaNacimiento)}
     private val edtNombreUsuario by lazy{this.findViewById<EditText>(R.id.edtRegistroNombreUsuario)}
     private var fechaNacimiento:LocalDate?=null
-    //TODO Por ahora almaceno las imagenes iniciales aqui. En el futuro lo cambiaré
+    //TODO Por ahora almaceno las imagenes iniciales aqui. En el puede que lo cambie
     private val libro1="resources/libro1.jpg"
     private val libro2="resources/libro2.jpg"
 
@@ -39,6 +39,7 @@ class PantallaRegistro : ActividadMadre() {
     }
     override fun onStart() {
         super.onStart()
+
         btnRegistrarme.setOnClickListener(){
             if(comprobarCampos()){
                 val r=Random()

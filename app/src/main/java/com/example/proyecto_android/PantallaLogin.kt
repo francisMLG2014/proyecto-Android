@@ -2,29 +2,18 @@ package com.example.proyecto_android
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Switch
-import android.widget.Toast
-import clases.Usuario
-import clases.UsuarioLogado
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.time.LocalDate
-
 class PantallaLogin : ActividadMadre() {
     private val btnIniciarSesion by lazy{this.findViewById<Button>(R.id.btnLoginIniciarSesion)}
     private val btnRegistrarme by lazy{this.findViewById<Button>(R.id.btnLoginRegistrarme)}
     private val edtEmail by lazy{this.findViewById<EditText>(R.id.edtLoginGmail)}
     private val edtContrasena by lazy{this.findViewById<EditText>(R.id.edtLoginContrasena)}
     private val switchGuardarEmail by lazy{this.findViewById<Switch>(R.id.switchLoginRecuerdame)}
+    private val ivImagen by lazy{this.findViewById<ImageView>(R.id.imageViewLoginLogo)}
 
 
     @SuppressLint("SuspiciousIndentation")
