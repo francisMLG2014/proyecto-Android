@@ -23,6 +23,7 @@ class PantallaRegistro : ActividadMadre() {
     private val btnFechaNacimiento by lazy{this.findViewById<Button>(R.id.btnRegistroFechaNacimiento)}
     private val edtNombreUsuario by lazy{this.findViewById<EditText>(R.id.edtRegistroNombreUsuario)}
     private var fechaNacimiento:LocalDate?=null
+    private val ivRegistro by lazy{this.findViewById<ImageView>(R.id.imageViewRegistroLogo)}
     //TODO Por ahora almaceno las imagenes iniciales aqui. En el puede que lo cambie
     private val libro1="resources/libro1.jpg"
     private val libro2="resources/libro2.jpg"
@@ -40,6 +41,7 @@ class PantallaRegistro : ActividadMadre() {
     override fun onStart() {
         super.onStart()
 
+        ivRegistro.setImageResource(R.mipmap.ic_libro)
         btnRegistrarme.setOnClickListener(){
             if(comprobarCampos()){
                 val r=Random()
@@ -104,22 +106,36 @@ class PantallaRegistro : ActividadMadre() {
     override fun onDestroy() {
         super.onDestroy()
     }
+
+    /**
+     *
+     * Funcion que comprueba todos los campos rellenables y les asigna un mensaje de error si no estan bien completados
+     *
+     * @return true si todo está bien, false si algún campo está mal completado
+     */
     private fun comprobarCampos():Boolean{
         var bool=true
         if(edtNombreUsuario.text.isBlank()){
-            edtNombreUsuario.error=R.string.error_campo_no_valido.toString()
+            edtNombreUsuario.error=getString(R.string.error_campo_no_valido)
             bool=false
         }
         if(edtEmail.text.isBlank()){
-            edtEmail.error=R.string.error_campo_no_valido.toString()
+            edtEmail.error=getString(R.string.error_campo_no_valido)
             bool=false
         }
-        if(edtContrasena.text.isBlank()||edtContrasena.text.length<6){
-            edtContrasena.error=R.string.error_campo_no_valido.toString()
+        if(edtContrasena.text.length<6){
+            edtContrasena.error=getString(R.string.minimo_seis_caracteres)
+            bool=false
+        }else if(edtContrasena.text.isBlank()){
+            edtContrasena.error=getString(R.string.error_campo_no_valido)
             bool=false
         }
-        if(fechaNacimiento==null){
-            btnFechaNacimiento.error=R.string.error_campo_no_valido.toString()
+        if(fechaNacimiento==null||fechaNacimiento!!.isAfter(LocalDate.now())){
+            btnFechaNacimiento.error=getString(R.string.error_campo_no_valido)
+            bool=false
+        }else if(fechaNacimiento!!<LocalDate.now().minusYears(12)){
+            btnFechaNacimiento.error=getString(R.string.edad_minima_requerida)
+            Toast.makeText(this,getString(R.string.edad_minima_requerida),Toast.LENGTH_LONG).show()
             bool=false
         }
 

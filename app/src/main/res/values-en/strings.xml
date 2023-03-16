@@ -32,10 +32,11 @@
     <string name="recuerdame">Remember me</string>
     <string name="credenciales_erroneas">Wrong credentials</string>
     <string name="cerrar_sesion">Log out</string>
+    <string name="minimo_seis_caracteres">Minimum 6 characters</string>
 
     <string name="fecha_nacimiento">Date of birth</string>
     <string name="seleccionar">Select</string>
-
+    <string name="edad_minima_requerida">You must be at least 12 years old</string>
 
     <!--Main screen-->
     <string name="perfil">Profile</string>
@@ -47,6 +48,7 @@
 
     <!--Profile Fragment-->
     <string name="cambiar_valores">Change</string>
+    <string name="peticion_enviada">Email sent</string>
 
     <!--Actions-->
     <string name="aplicar">Apply</string>

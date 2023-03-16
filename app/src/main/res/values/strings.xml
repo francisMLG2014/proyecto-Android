@@ -35,6 +35,8 @@
 
     <string name="fecha_nacimiento">Fecha nacimiento</string>
     <string name="seleccionar">Seleccionar</string>
+    <string name="minimo_seis_caracteres">Minimo 6 caracteres</string>
+    <string name="edad_minima_requerida">Debes tener al menos 12 años</string>
 
 
     <!--Pantalla principal-->
@@ -47,6 +49,7 @@
 
     <!--Fragment Perfil-->
     <string name="cambiar_valores">Cambiar</string>
+    <string name="peticion_enviada">Email enviado</string>
 
     <!--Acciones-->
     <string name="aplicar">Aplicar</string>

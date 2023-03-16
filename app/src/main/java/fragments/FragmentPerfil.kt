@@ -22,6 +22,7 @@ import clases.UsuarioLogado
 import com.example.proyecto_android.PantallaLogin
 import com.example.proyecto_android.PantallaPrincipal
 import com.example.proyecto_android.R
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -79,7 +80,7 @@ class FragmentPerfil(user:UsuarioLogado) : Fragment() {
         btnCambiarImagen=view.findViewById(R.id.btnPerfilCambiarImagen)
         btnCambiarContrasena=view.findViewById(R.id.btnPerfilCambiarContrasena)
 
-
+        dimensionarImagen()
 
         tvNombreUsuario.text=usuario.nombreUsuario
         tvEmail.text=usuario.email
@@ -97,7 +98,28 @@ class FragmentPerfil(user:UsuarioLogado) : Fragment() {
         btnCambiarImagen.setOnClickListener(){
             preguntarPermisosGaleria()
         }
+        btnCambiarContrasena.setOnClickListener(){
+            enviarPeticionResetPass()
+        }
 
+
+
+    }
+
+    fun enviarPeticionResetPass(){
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        if(auth.currentUser!=null){
+            try{
+                auth.sendPasswordResetEmail(auth.currentUser!!.email!!)
+                Toast.makeText(c,c.getString(R.string.peticion_enviada),Toast.LENGTH_LONG).show()
+            }catch (e:Exception){
+                Toast.makeText(c,c.getString(R.string.algo_ha_ido_mal),Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+
+    fun dimensionarImagen(){
         val width=calcularDimensionesImagen()
         val widthInPx = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -109,10 +131,7 @@ class FragmentPerfil(user:UsuarioLogado) : Fragment() {
         imagenUsuario.setImageBitmap(BitmapFactory.decodeFile(DAOUsuarioLogado(c).archivoImagenAlmacenamientoInterno(usuario).absolutePath))
         imagenUsuario.requestLayout()
 
-
-
     }
-
     fun calcularDimensionesImagen():Float{
         val displayMetrics = resources.displayMetrics
         return (displayMetrics.widthPixels / displayMetrics.density * 0.63).toFloat()
@@ -137,8 +156,13 @@ class FragmentPerfil(user:UsuarioLogado) : Fragment() {
                 var bool:Boolean
                 try{
                     bool=dao.subirImagen(data,usuario)
-                    usuario.ruta=dao.rutaImagenAlmacenamientoInterno(usuario)
-                    dao.cargarImagenAlmacenamientoInterno(usuario)
+                    if(bool){
+                        usuario.ruta=dao.rutaImagenAlmacenamientoInterno(usuario)
+                        dao.cargarImagenAlmacenamientoInterno(usuario)
+                    }else{
+                        throw Exception()
+                    }
+
                 }catch (e:Exception){bool=false}
                 if(bool){
                     imagenUsuario.setImageURI(data)

@@ -27,6 +27,8 @@ class PantallaLogin : ActividadMadre() {
         super.onStart()
         val preferences = getSharedPreferences(getString(R.string.variable_shared_preferences), Context.MODE_PRIVATE)
 
+        ivImagen.setImageResource(R.mipmap.ic_libro)
+
 
         if(preferences.getBoolean(getString(R.string.shared_preferences_switch_email),false)){
             switchGuardarEmail.isChecked=true
@@ -91,8 +93,11 @@ class PantallaLogin : ActividadMadre() {
                 edtEmail.error=getString(R.string.error_campo_no_valido)
                 bool=false
             }
-            if(this.edtContrasena.text.isBlank()||this.edtContrasena.text.length<6){
-                edtContrasena.error=getString(R.string.error_contrasena)
+            if(edtContrasena.text.length<6){
+                edtContrasena.error=getString(R.string.minimo_seis_caracteres)
+                bool=false
+            }else if(edtContrasena.text.isBlank()){
+                edtContrasena.error=getString(R.string.error_campo_no_valido)
                 bool=false
             }
         return bool

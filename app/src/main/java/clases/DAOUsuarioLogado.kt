@@ -172,32 +172,45 @@ return@withContext usuario
     @SuppressLint("SuspiciousIndentation")
     public suspend fun subirImagen(uri:Uri, usuario:UsuarioLogado):Boolean = withContext(
         Dispatchers.IO){
-        val extension=obtenerExtension(uri)
-        val nuevaDireccionStorage=rutaStorage(usuario,extension)
-        val viejaDireccionStorage=usuario.imagenUsuario.toString()
+        try {
+            val extension = obtenerExtension(uri)
+            val nuevaDireccionStorage = rutaStorage(usuario, extension)
+            val viejaDireccionStorage = usuario.imagenUsuario.toString()
 
-        val storage = Firebase.storage
-        val firebase= Firebase.firestore
-        //primero subimos la imagen nueva
-        val imagenUsuarioNuevaRef = storage.reference.child(nuevaDireccionStorage)
-        val subida=imagenUsuarioNuevaRef.putFile(uri)
+            val storage = Firebase.storage
+            val firebase = Firebase.firestore
+            //primero subimos la imagen nueva
+            val imagenUsuarioNuevaRef = storage.reference.child(nuevaDireccionStorage)
+            val subida = imagenUsuarioNuevaRef.putFile(uri)
             subida.await()
-            if (subida.isSuccessful){
-                usuario.imagenUsuario=nuevaDireccionStorage
+            if (subida.isSuccessful) {
+                usuario.imagenUsuario = nuevaDireccionStorage
                 //actualizamos la ruta del usuario de la base de datos
-                val actualizacion=firebase.collection(c.getString(R.string.coleccion_usuarios)).document(usuario.email.toString()).update(c.getString(R.string.campo_imagen),nuevaDireccionStorage)
-                    actualizacion.await()
-                    if(!actualizacion.isSuccessful){
-                        return@withContext false
-                    }
-            }else{
+                val actualizacion = firebase.collection(c.getString(R.string.coleccion_usuarios))
+                    .document(usuario.email.toString())
+                    .update(c.getString(R.string.campo_imagen), nuevaDireccionStorage)
+                actualizacion.await()
+                if (!actualizacion.isSuccessful) {
+                    return@withContext false
+                }
+            } else {
                 return@withContext false
             }
-        if(!nuevaDireccionStorage.equals(viejaDireccionStorage)){
-            //Borramos la vieja direccion
-        storage.reference.child(viejaDireccionStorage).delete()
+            if (nuevaDireccionStorage.equals(viejaDireccionStorage) && viejaDireccionStorage.contains(
+                    c.getString(R.string.ruta_imagenes_usuarios)
+                )
+            ) {
+                //Borramos la vieja direccion. Si peta aqui es porque no tiene permisos para borrar la imagen. Nunca deberia darse el caso, pero mejor prevenir.
+                try {
+                    storage.reference.child(viejaDireccionStorage).delete()
+                }catch (e:Exception){
+
+                }
+            }
+            return@withContext true
+        }catch (e:Exception){
+            return@withContext false
         }
-        return@withContext true
     }
 
 
